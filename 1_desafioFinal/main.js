@@ -8,6 +8,9 @@ const colNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12
 
 
 function nameBtn(i, j,direction) {
+ let aux = document.createElement("div")
+ aux.classList.add(`${direction}`+`Face`);
+ wrap.appendChild(aux);
   for (const i of rowsLetters) {
     let row = document.createElement('span');
     for (const j of colNumbers) {
@@ -21,7 +24,7 @@ function nameBtn(i, j,direction) {
 
     }
     row.classList.add(`${direction}`);
-    wrap.appendChild(row);
+    aux.appendChild(row);
     
   }
 }
@@ -33,11 +36,12 @@ function nameBtn(i, j,direction) {
 // Each face should be the same (11x11), according to picture images/face.png
 
 function createFace2(direction) {
-  let face = document.createElement('div');
+  /*let face = document.createElement('div');
   
   face.style.padding = "30px";
+  wrap.appendChild(face);*/
+  
   nameBtn(rowsLetters, colNumbers, direction);
-  wrap.appendChild(face);
   
   
 
@@ -140,7 +144,7 @@ class cell {
   }
 
 }
-
+*/
 
 var isDown = false;
 rotateCube(-105, 100)
@@ -161,4 +165,3 @@ function rotateCube(x, y) {
 wrap.style.transform = `rotateX(${Yvalue}deg) rotateY(${-Xvalue}deg)`;
 }
 
-*/

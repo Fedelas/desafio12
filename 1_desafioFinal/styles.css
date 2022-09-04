@@ -1,6 +1,62 @@
+
+ .container {
+    width              : 600px;
+    height             : 600px;
+    position           : absolute;
+    top                : 0;
+    left               : 0;
+    top                : 50%;
+    left               : 50%;
+    transform          : translate(-50%, -50%);
+    display            : flex;
+    justify-content    : center;
+    align-items        : center;
+    perspective        : 2000px;
+}
+
+
+ .box {
+
+    transform-style: preserve-3d;
+    position       : absolute;
+    width          : 390px;
+    height         : 390px;
+    animation      : move 20s linear infinite;
+    transition     : all 1s ease-out;
+}
+
+.box div {
+    width                : 390px;
+    height               : 390px;
+    position             : absolute;
+    
+    display              : flex;
+    justify-content      : center;
+    align-items          : center;
+    
+    font-size            : 2rem;
+    background-size      : 100%;
+    z-index              : 10;
+    display              : grid;
+    grid-template-columns: repeat(auto-fill, minmax(calc(390px/13), 1fr));
+    gap                  : 0px;
+    padding              : 0px;
+}
+
+.box div span {
+    height          : calc(390/13 px);
+    /*background-color: var(--clr);*/
+    /*border-radius   : 10px;*/
+    position        : relative;
+    z-index         : -1;
+    overflow        : hidden;
+    text-align      : center;
+}
+
 .cell {
     width: 30px;
     height: 30px;
+    
     
     margin: 0px;
     padding: 0px;
@@ -13,28 +69,50 @@
    background-color: orange; /*con SASS despues puedo modificar el color de la cara*/
   }
 
-  .front{
+
+
+.frontFace {
+    
+    transform: translateZ(-195px) rotateX(180deg);
     background-color: brown;
- }
+    
+    
+}
 
- .back{
+.backFace {
+    transform: translateZ(195px) rotateZ(180deg);
     background-color: blue;
- }
+}
 
- .top{
-    background-color: green;
- }
- .bottom{
-    background-color: yellow;
- }
-
- .right{
-    background-color: pink;
- }
-
- .left{
+.leftFace {
+    right    : 195px;
+    transform: rotateY(-90deg)rotateZ(180deg);
     background-color: orangered;
- }
+    
+    
+}
+
+.rightFace {
+    left     : 195px;
+    transform: rotateY(90deg) rotateZ(180deg);
+    background-color: pink;
+
+}
+
+.topFace {
+    bottom   : 195px;
+    transform: rotateX(90deg);
+    background-color: green;
+}
+
+.bottomFace {
+    top      : 195px;
+    transform: rotateX(-90deg);
+    background-color: yellow
+    
+}
+
+ /*
 
  #wrapper{
     width: 390px;
@@ -46,7 +124,7 @@
     display: flex;
     flex-wrap: nowrap;
     word-wrap: break-word;
- }
+ }*/
 
 
  .A1, .A2, .A3, .A4, .A5, .A9, .A10, .A11, .A12, .A13,
