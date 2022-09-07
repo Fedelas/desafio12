@@ -34,7 +34,6 @@
     justify-content      : center;
     align-items          : center;
     
-    font-size            : 2rem;
     background-size      : 100%;
     z-index              : 10;
     display              : grid;
@@ -42,16 +41,16 @@
     gap                  : 0px;
     padding              : 0px;
 }
-
+/*
 .box div span {
     height          : calc(390/13 px);
     /*background-color: var(--clr);*/
-    /*border-radius   : 10px;*/
+    /*border-radius   : 10px;
     position        : relative;
     z-index         : -1;
     overflow        : hidden;
     text-align      : center;
-}
+}*/
 
 .cell {
     width: 30px;
@@ -72,44 +71,50 @@
 
 
 .frontFace {
-    
     transform: translateZ(-195px) rotateX(180deg);
+}
+
+.front {
     background-color: brown;
-    
-    
 }
 
 .backFace {
     transform: translateZ(195px) rotateZ(180deg);
+}
+.back {
     background-color: blue;
 }
 
 .leftFace {
     right    : 195px;
     transform: rotateY(-90deg)rotateZ(180deg);
+}
+.left {
     background-color: orangered;
-    
-    
 }
 
 .rightFace {
     left     : 195px;
     transform: rotateY(90deg) rotateZ(180deg);
+}
+.right {
     background-color: pink;
-
 }
 
 .topFace {
     bottom   : 195px;
     transform: rotateX(90deg);
+}
+.top {
     background-color: green;
 }
 
 .bottomFace {
     top      : 195px;
-    transform: rotateX(-90deg);
+    transform: rotateX(-90deg);    
+}
+.bottom {
     background-color: yellow
-    
 }
 
  /*
@@ -137,7 +142,35 @@
  .K1, .K2, .K12, .K13,
  .L1, .L2, .L3, .L4, .L5, .L9, .L10, .L11, .L12, .L13,
  .M1, .M2, .M3, .M4, .M5, .M9, .M10, .M11, .M12, .M13,
- .A7, .G1, .M6, .M8, .M13 {
+ .A7, .G1, .F13, .H13, .M6, .M8, .M13 {
     background-color: black;
  }
+
+
+ #selection {
+    display: none;
+    position: fixed;
+    margin-left: 175px;
+    margin-top: 22px;
+  }
+  
+  #selection > .split { /*para armar el bloque de numeros de sugerencia*/
+    display: block;
+    
+  }
+  
+  #selection > span {
+    display: inline-block;
+    width: 30px;
+    border: 1px solid blueviolet;
+    background: #323;
+    color: #ddd;
+    padding: 2px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  #selection > span:hover {
+    background: #55a;
+  }
 
