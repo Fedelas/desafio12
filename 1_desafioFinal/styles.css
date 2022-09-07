@@ -70,50 +70,50 @@
 
 
 
-.frontFace {
+.redFace {
     transform: translateZ(-195px) rotateX(180deg);
 }
 
-.front {
-    background-color: brown;
+.red {
+    background-color: red;
 }
 
-.backFace {
+.blueFace {
     transform: translateZ(195px) rotateZ(180deg);
 }
-.back {
+.blue {
     background-color: blue;
 }
 
-.leftFace {
+.orangeFace {
     right    : 195px;
     transform: rotateY(-90deg)rotateZ(180deg);
 }
-.left {
+.orange {
     background-color: orangered;
 }
 
-.rightFace {
+.pinkFace {
     left     : 195px;
     transform: rotateY(90deg) rotateZ(180deg);
 }
-.right {
+.pink {
     background-color: pink;
 }
 
-.topFace {
+.greenFace {
     bottom   : 195px;
     transform: rotateX(90deg);
 }
-.top {
+.green {
     background-color: green;
 }
 
-.bottomFace {
+.yellowFace {
     top      : 195px;
     transform: rotateX(-90deg);    
 }
-.bottom {
+.yellow {
     background-color: yellow
 }
 
