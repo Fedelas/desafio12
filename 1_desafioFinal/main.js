@@ -1,3 +1,6 @@
+import {reglas} from "./promptInicio.js"
+
+
 let currentlyEditingTimeout;
 let wrap = document.getElementById('wrapper');
 
@@ -5,7 +8,10 @@ const rowsLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
 const colNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'];
 const directions = ['red', 'blue', 'orange', 'pink', 'green', 'yellow'];
 const square1BackFace = []; // SEE COMMENT IN FUNCTION chooseSelection AT THE END OF THE DOCUMENT
-numberOfOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // TO BE USE IN THE FUTURE
+//numberOfOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // TO BE USE IN THE FUTURE
+
+reglas();
+
 
 // FUNCTION THAT ALLOWS THE CREATION OF THE FACES AND BUTTONS 
 function nameBtn(i, j, direction) {
@@ -81,9 +87,8 @@ document.addEventListener('keydown', function (e) {
 })
 
 
-
 // FUNCTION TO SHOW THE POSIBLE NUMBERS --- IT IS SHOW AS A BLACK SQUARE
-function showOptions(nuevoBoton) {
+export function showOptions(nuevoBoton) {
   currentlyEditing = nuevoBoton;
   let selector = document.getElementById('selection');
   selector.style.display = 'block';
@@ -91,7 +96,7 @@ function showOptions(nuevoBoton) {
 }
 
 // FUNCTION TO CHOSE THE NUMBER AND FILL THE BUTTON WITH THE CHOSEN NUMBER
-function chooseSelection(sel) {
+export function chooseSelection(sel) {
   let selector = document.getElementById('selection');
   selector.style.display = 'none';
   currentlyEditing.innerHTML = sel.innerHTML;
@@ -100,5 +105,3 @@ function chooseSelection(sel) {
   square1BackFace.push(selectedNumber); // This is added to test the future function of populating an array
   console.log(square1BackFace);
 }
-
-
