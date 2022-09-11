@@ -1,16 +1,18 @@
-import {reglas} from "./promptInicio.js"
+//import {reglas} from "./promptInicio.js"
 
-
+let currentlyEditing;
 let currentlyEditingTimeout;
 let wrap = document.getElementById('wrapper');
 
 const rowsLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'];
 const colNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'];
+
+
 const directions = ['red', 'blue', 'orange', 'pink', 'green', 'yellow'];
 const square1BackFace = []; // SEE COMMENT IN FUNCTION chooseSelection AT THE END OF THE DOCUMENT
 //numberOfOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // TO BE USE IN THE FUTURE
 
-reglas();
+//reglas();
 
 
 // FUNCTION THAT ALLOWS THE CREATION OF THE FACES AND BUTTONS 
@@ -37,6 +39,11 @@ function nameBtn(i, j, direction) {
 
   }
 }
+
+
+
+
+
 
 
 
@@ -88,20 +95,31 @@ document.addEventListener('keydown', function (e) {
 
 
 // FUNCTION TO SHOW THE POSIBLE NUMBERS --- IT IS SHOW AS A BLACK SQUARE
-export function showOptions(nuevoBoton) {
+function showOptions(nuevoBoton) {
   currentlyEditing = nuevoBoton;
+  let mousepos = [MouseEvent.clientX, MouseEvent.clientY];
   let selector = document.getElementById('selection');
+  selector.style.top = +mousepos[1] + 'px'; /* esto es para que no aparezca encima*/
+  selector.style.left = +mousepos[0] + 'px';
   selector.style.display = 'block';
-
+  
 }
 
+
 // FUNCTION TO CHOSE THE NUMBER AND FILL THE BUTTON WITH THE CHOSEN NUMBER
-export function chooseSelection(sel) {
+function chooseSelection(sel) {
   let selector = document.getElementById('selection');
   selector.style.display = 'none';
   currentlyEditing.innerHTML = sel.innerHTML;
-  currentlyEditing = null;
+  //currentlyEditing = null;
   let selectedNumber = sel.textContent
-  square1BackFace.push(selectedNumber); // This is added to test the future function of populating an array
-  console.log(square1BackFace);
+  //square1BackFace.push(selectedNumber); // This is added to test the future function of populating an array
+  console.log(currentlyEditing.id + selectedNumber);
 }
+
+
+let arraySquare1 = document.getElementById("blueG13");
+
+console.log(arraySquare1.textContent);
+
+
