@@ -105,6 +105,7 @@ function showOptions(nuevoBoton) {
   
 }
 
+let arraySquare1 = {blueG13: '', blueF12: ''};
 
 // FUNCTION TO CHOSE THE NUMBER AND FILL THE BUTTON WITH THE CHOSEN NUMBER
 function chooseSelection(sel) {
@@ -114,12 +115,17 @@ function chooseSelection(sel) {
   //currentlyEditing = null;
   let selectedNumber = sel.textContent
   //square1BackFace.push(selectedNumber); // This is added to test the future function of populating an array
-  console.log(currentlyEditing.id + selectedNumber);
+  let idToLook = currentlyEditing.id;
+  arraySquare1[idToLook] = currentlyEditing.textContent;
+  console.log(arraySquare1);
 }
 
 
-let arraySquare1 = document.getElementById("blueG13");
 
-console.log(arraySquare1.textContent);
+
+console.log(arraySquare1);
+
+
+
 
 
