@@ -19,15 +19,15 @@
 
     transform-style: preserve-3d;
     position       : absolute;
-    width          : 390px;
-    height         : 390px;
+    width          : 270px;
+    height         : 270px;
     animation      : move 20s linear infinite;
     transition     : all 1s ease-out;
 }
 
 .box div {
-    width                : 390px;
-    height               : 390px;
+    width                : 270px;
+    height               : 270px;
     position             : absolute;
     
     display              : flex;
@@ -37,7 +37,7 @@
     background-size      : 100%;
     z-index              : 10;
     display              : grid;
-    grid-template-columns: repeat(auto-fill, minmax(calc(390px/13), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(calc(270px/9), 1fr));
     gap                  : 0px;
     padding              : 0px;
 }
@@ -66,6 +66,187 @@
    word-wrap: break-word;
    flex-wrap: nowrap;
    background-color: orange; /*con SASS despues puedo modificar el color de la cara*/
+  }
+
+
+
+.redFace {
+    transform: translateZ(-135px) rotateX(180deg);
+}
+
+.red {
+    background-color: red;
+}
+
+.blueFace {
+    transform: translateZ(135px) rotateZ(180deg);
+}
+.blue {
+    background-color: blue;
+}
+
+.orangeFace {
+    right    : 135px;
+    transform: rotateY(-90deg)rotateZ(180deg);
+}
+.orange {
+    background-color: orange;
+}
+
+.pinkFace {
+    left     : 135px;
+    transform: rotateY(90deg) rotateZ(180deg);
+}
+.pink {
+    background-color: pink;
+}
+
+.greenFace {
+    bottom   : 135px;
+    transform: rotateX(90deg);
+}
+.green {
+    background-color: green;
+}
+
+.yellowFace {
+    top      : 135px;
+    transform: rotateX(-90deg);    
+}
+.yellow {
+    background-color: yellow
+}
+
+ /*
+
+ #wrapper{
+    width: 270px;
+ }
+
+  #wrapper> div {
+    text-align: center;
+    margin: 0px;
+    display: flex;
+    flex-wrap: nowrap;
+    word-wrap: break-word;
+ }*/
+
+ /*
+ .A1, .A2, .A3, .A4, .A5, .A9, .A10, .A11, .A12, .A13,
+ .B1, .B2, .B3, .B4, .B5,  .B9, .B10, .B11, .B12, .B13,
+ .C1, .C2, .C12, .C13,
+ .D1, .D2, .D12, .D13,
+ .E1, .E2, .E12, .E13,
+ .I1, .I2, .I12, .I13,
+ .J1, .J2, .J12, .J13,
+ .K1, .K2, .K12, .K13,
+ .L1, .L2, .L3, .L4, .L5, .L9, .L10, .L11, .L12, .L13,
+ .M1, .M2, .M3, .M4, .M5, .M9, .M10, .M11, .M12, .M13,
+ .A7, .G1, .F13, .H13, .M6, .M8, .M13 {
+    background-color: black;
+ }*/
+
+
+ #selection {
+    display: none;
+    position: fixed;
+    margin-left: 175px;
+    margin-top: 22px;
+  }
+  
+  #selection > .split { /*para armar el bloque de numeros de sugerencia*/
+    display: block;
+    
+  }
+  
+  #selection > span {
+    display: inline-block;
+    width: 30px;
+    border: 1px solid blueviolet;
+    background: #323;
+    color: #ddd;
+    padding: 2px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  #selection > span:hover {
+    background: #55a;
+  }
+
+
+
+
+  /* ---- CODIGO SIN MODIFICAR ----
+
+  
+ .container {
+    width              : 600px;
+    height             : 600px;
+    position           : absolute;
+    top                : 0;
+    left               : 0;
+    top                : 50%;
+    left               : 50%;
+    transform          : translate(-50%, -50%);
+    display            : flex;
+    justify-content    : center;
+    align-items        : center;
+    perspective        : 2000px;
+}
+
+
+ .box {
+
+    transform-style: preserve-3d;
+    position       : absolute;
+    width          : 270px;
+    height         : 270px;
+    animation      : move 20s linear infinite;
+    transition     : all 1s ease-out;
+}
+
+.box div {
+    width                : 270px;
+    height               : 270px;
+    position             : absolute;
+    
+    display              : flex;
+    justify-content      : center;
+    align-items          : center;
+    
+    background-size      : 100%;
+    z-index              : 10;
+    display              : grid;
+    grid-template-columns: repeat(auto-fill, minmax(calc(270px/13), 1fr));
+    gap                  : 0px;
+    padding              : 0px;
+}
+------
+.box div span {
+    height          : calc(390/13 px);
+    /*background-color: var(--clr);*/
+    /*border-radius   : 10px;
+    position        : relative;
+    z-index         : -1;
+    overflow        : hidden;
+    text-align      : center;
+}--------
+
+.cell {
+    width: 30px;
+    height: 30px;
+    
+    
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+  
+    border: 1px solid;
+
+   word-wrap: break-word;
+   flex-wrap: nowrap;
+   background-color: orange; /*con SASS despues puedo modificar el color de la cara
   }
 
 
@@ -117,10 +298,10 @@
     background-color: yellow
 }
 
- /*
+ ------
 
  #wrapper{
-    width: 390px;
+    width: 270px;
  }
 
   #wrapper> div {
@@ -129,7 +310,7 @@
     display: flex;
     flex-wrap: nowrap;
     word-wrap: break-word;
- }*/
+ } --------
 
 
  .A1, .A2, .A3, .A4, .A5, .A9, .A10, .A11, .A12, .A13,
@@ -154,7 +335,7 @@
     margin-top: 22px;
   }
   
-  #selection > .split { /*para armar el bloque de numeros de sugerencia*/
+  #selection > .split { /*para armar el bloque de numeros de sugerencia
     display: block;
     
   }
@@ -173,4 +354,4 @@
   #selection > span:hover {
     background: #55a;
   }
-
+*/

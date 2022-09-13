@@ -4,15 +4,41 @@ let currentlyEditing;
 let currentlyEditingTimeout;
 let wrap = document.getElementById('wrapper');
 
-const rowsLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'];
-const colNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'];
 
+
+const rowsLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+const colNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 const directions = ['red', 'blue', 'orange', 'pink', 'green', 'yellow'];
 const square1BackFace = []; // SEE COMMENT IN FUNCTION chooseSelection AT THE END OF THE DOCUMENT
 //numberOfOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // TO BE USE IN THE FUTURE
 
-//reglas();
+
+// FUNCTION REGLAS: PARA CUMPLIMENTAR CON EL DESAFIO
+
+function reglas() {
+  let input = prompt("¿Querés conocer las reglas de cudoku? - Favor responder SI o NO");
+
+  if (input === null) {
+      return; //break out of the function early
+  }
+  switch (input.toUpperCase()) {
+      case 'SI':
+          alert("El cudoku es una variación del sudoku original. La idea es integrar los sudokus de cada una de las caras del cubo a través de los cuadrados que estan en el medio de cada uno de los lados")
+          break;
+      case 'NO':
+          break;
+      default:
+          alert("Favor responder SI o NO");
+          reglas();
+
+  }
+
+}
+
+
+// LLAMO A LA REGLA
+reglas();
 
 
 // FUNCTION THAT ALLOWS THE CREATION OF THE FACES AND BUTTONS 
@@ -30,7 +56,7 @@ function nameBtn(i, j, direction) {
       cellNew.classList.add(`${direction}`);
       cellNew.id = direction + String(`${i + j}`);
       cellNew.appendChild(text);
-      cellNew.setAttribute("onmousedown", "showOptions(" + cellNew.id + ")");
+      cellNew.setAttribute("onmousedown", "showOptions(" + cellNew.id + ")"); // this shows the square with numbers 1 to 9 to select from
       row.appendChild(cellNew);
 
     }
@@ -73,24 +99,50 @@ document.addEventListener('keydown', function (e) {
     case 37:
       yAngle -= 30;
       xAngle -= 30;
-      wrap.style.transform = `rotateX(${xAngle}deg) rotateY(${-yAngle}deg) rotateZ(${0}deg)`
+      zAngle=0;
+      //wrap.style.transform = `rotateX(${xAngle}deg) rotateY(${-yAngle}deg) rotateZ(${0}deg)`
+      wrap.style.transform = `rotateX(${xAngle}deg) rotateY(${-yAngle}deg)`
+      xAngle=xAngle;
+      yAngle=yAngle;
+      zAngle=zAngle;
       break;
 
     case 38:// for up key  
       xAngle += 30;
-      wrap.style.transform = `rotateX(${xAngle}deg) rotateY(${0}deg) rotateZ(${0}deg)`
+      yAngle=0;
+      zAngle=0;
+      //wrap.style.transform = `rotateX(${xAngle}deg) rotateY(${0}deg) rotateZ(${0}deg)`
+      wrap.style.transform = `rotateX(${xAngle}deg)`
+      xAngle=xAngle;
+      yAngle=yAngle;
+      zAngle=zAngle;
       break;
 
     case 39:// for right key  
       yAngle += 30;
-      wrap.style.transform = `rotateX(${0}deg) rotateY(${-yAngle}deg) rotateZ(${0}deg)`
+      xAngle=0;
+      zAngle=0;
+      //wrap.style.transform = `rotateX(${0}deg) rotateY(${-yAngle}deg) rotateZ(${0}deg)`
+      wrap.style.transform = `rotateY(${-yAngle}deg)`
+      xAngle=xAngle;
+      yAngle=yAngle;
+      zAngle=zAngle;
       break;
 
     case 40:// for down key  
       zAngle -= 30;
-      wrap.style.transform = `rotateX(${0}deg) rotateY(${0}deg) rotateZ(${zAngle}deg)`
+      xAngle=0;
+      yAngle=0;
+      //wrap.style.transform = `rotateX(${0}deg) rotateY(${0}deg) rotateZ(${zAngle}deg)`
+      wrap.style.transform = `rotateZ(${zAngle}deg)`
+      xAngle=xAngle;
+      yAngle=yAngle;
+      zAngle=zAngle;
       break;
   }
+  console.log(xAngle);
+  console.log(yAngle);
+  console.log(zAngle);
 })
 
 
@@ -113,6 +165,7 @@ function chooseSelection(sel) {
   selector.style.display = 'none';
   currentlyEditing.innerHTML = sel.innerHTML;
   //currentlyEditing = null;
+  // CODE TO BE USE IN THE FUTURE TO GET THE VALUES OF EVERY CELL
   let selectedNumber = sel.textContent
   //square1BackFace.push(selectedNumber); // This is added to test the future function of populating an array
   let idToLook = currentlyEditing.id;
@@ -123,7 +176,7 @@ function chooseSelection(sel) {
 
 
 
-console.log(arraySquare1);
+console.log(arraySquare1); // to be used in the furute
 
 
 
