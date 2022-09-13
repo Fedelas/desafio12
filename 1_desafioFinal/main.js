@@ -24,7 +24,7 @@ function reglas() {
   }
   switch (input.toUpperCase()) {
       case 'SI':
-          alert("El cudoku es una variación del sudoku original. La idea es integrar los sudokus de cada una de las caras del cubo a través de los cuadrados que estan en el medio de cada uno de los lados")
+          alert("El cudoku es una variación del sudoku original. La idea es relacionar los sudokus usando cada una de las filas que estan en los lados de cada cara. Es decir: A1-I1; A1-9; I1-9 y A9-I9. Estas filas van a tener el mismo numero en cada cara aledaña. Ej la fila A9-I9 amarilla va a tener los mismos numeros y en el mismo orden que la fila A1-I1 roja ")
           break;
       case 'NO':
           break;
