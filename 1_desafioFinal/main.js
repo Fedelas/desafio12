@@ -131,26 +131,13 @@ function showOptions(nuevoBoton) {
   console.log(rest); // to be use in future to show in DOM the available posibilities
 
   currentlyEditing = nuevoBoton;
+  //let selector = document.getElementById('selection');
+  let mousepos = [MouseEvent.clientX, MouseEvent.clientY];
   let selector = document.getElementById('selection');
-  ///////// ----- AGREGADO  ------ 
-  
-  selector.addEventListener('click', ( {x, y} ) => {
-   let xPos = x;
-   let yPos = y - 200;
-   selector.style.marginTop = yPos + "px";
-   selector.style.marginLeft = xPos + "px";
-  console.log(x,y,xPos, yPos);   /// AYUDA PARA ENTENDER PORQUE SE DESPLAZA
- 
-    
-    
-})
-selector.style.display = 'block';
-  
+  selector.style.top = +mousepos[1] + 'px'; /* esto es para que no aparezca encima*/
+  selector.style.left = +mousepos[0] + 'px';
+  selector.style.display = 'block';
 }
-
-
-
-
 
 //// TIMER 
 let hours = 0;
