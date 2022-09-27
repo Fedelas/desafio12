@@ -10,6 +10,7 @@ const colNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const directions = ['red', 'blue', 'orange', 'pink', 'green', 'yellow'];
 const square1BackFace = []; // SEE COMMENT IN FUNCTION chooseSelection AT THE END OF THE DOCUMENT
 //numberOfOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // TO BE USE IN THE FUTURE
+//let {elementA, elementB, elementC, elementD, elementE,elementF,elementG, elementH, elementI}=elementsInRow
 
 // FUNCTION THAT ALLOWS THE CREATION OF THE FACES AND BUTTONS 
 function nameBtn(i, j, direction) {
@@ -105,36 +106,50 @@ document.addEventListener('keydown', function (e) {
   
 })
 
+let arraySquare1 = {}; 
+// Destructuring + spread --> the idea is to remove the available posibilities if already used
+let {elementosCompletados, ...rest} = {elementosCompletados: arraySquare1, val1: 1, val2: 2, val3:3, val4:4, val5:5, val6:6, val7:7, val8:8, val9:9};
 
-// FUNCTION TO SHOW THE POSIBLE NUMBERS --- IT IS SHOW AS A BLACK SQUARE
-function showOptions(nuevoBoton) {
-  currentlyEditing = nuevoBoton;
-  let mousepos = [MouseEvent.clientX, MouseEvent.clientY];
-  let selector = document.getElementById('selection');
-  selector.style.top = +mousepos[1] + 'px'; /* esto es para que no aparezca encima*/
-  selector.style.left = +mousepos[0] + 'px';
-  selector.style.display = 'block';
-
-}
-
-let arraySquare1 = { blueG13: '', blueF12: '' };
 
 // FUNCTION TO CHOSE THE NUMBER AND FILL THE BUTTON WITH THE CHOSEN NUMBER
 function chooseSelection(sel) {
   let selector = document.getElementById('selection');
   selector.style.display = 'none';
-  currentlyEditing.innerHTML = sel.innerHTML;
+  (sel.id!=="closeOptions")? currentlyEditing.innerHTML = sel.innerHTML : ""; // in order to allow to close the selection chart
   //currentlyEditing = null;
   // CODE TO BE USE IN THE FUTURE TO GET THE VALUES OF EVERY CELL
-  let selectedNumber = sel.textContent
+  //let selectedNumber = sel.textContent
   //square1BackFace.push(selectedNumber); // This is added to test the future function of populating an array
   let idToLook = currentlyEditing.id;
   arraySquare1[idToLook] = currentlyEditing.textContent;
-  console.log(arraySquare1);
+  //console.log(arraySquare1);
+ }
+
+// FUNCTION TO SHOW THE POSIBLE NUMBERS --- IT IS SHOW AS A BLACK SQUARE
+function showOptions(nuevoBoton) {
+  
+  console.log(rest); // to be use in future to show in DOM the available posibilities
+
+  currentlyEditing = nuevoBoton;
+  let selector = document.getElementById('selection');
+  ///////// ----- AGREGADO  ------ 
+  
+  selector.addEventListener('click', ( {x, y} ) => {
+   let xPos = x;
+   let yPos = y - 200;
+   selector.style.marginTop = yPos + "px";
+   selector.style.marginLeft = xPos + "px";
+  console.log(x,y,xPos, yPos);   /// AYUDA PARA ENTENDER PORQUE SE DESPLAZA
+ 
+    
+    
+})
+selector.style.display = 'block';
+  
 }
 
 
-console.log(arraySquare1); // to be used in the furute
+
 
 
 //// TIMER 

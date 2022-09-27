@@ -178,8 +178,8 @@ section#game .start .high-scores{
  #selection {
     display: none;
     position: fixed;
-    margin-left: 175px;
-    margin-top: 22px;
+    /*margin-left: 50px;
+    margin-top: 22px;*/
   }
   
   #selection > .split { /*para armar el bloque de numeros de sugerencia*/
