@@ -154,14 +154,36 @@ $('#pause').click(function () {
   clearTimeout(timex); // clearTimeout() method prevents the setTimeout() method from executing the function.
 });
 
-$('#finish').click(function () {
+ $('#finish').click(function () {
   clearTimeout(timex); // clearTimeout() method prevents the setTimeout() method from executing the function.
   $('#continueTime').prop('disabled', true)
   $('#pause').prop('disabled', true)
   $('#finish').prop('disabled', true)
   timeRanking = timeInSeconds;
-  UpdateScore();
- });
+
+  Swal.fire({ // implementation of sweet alert
+    title: 'WELL DONE!',
+    text: `Your time is: ${timeRanking} seconds`,
+    icon: 'success',
+    confirmButtonText: "PLAY AGAIN",
+    showCancelButton: true,
+    
+  }).then((result) => {
+    if (result.value) {
+      UpdateScore();
+      $('#continueTime').prop('disabled', false)
+      $('#pause').prop('disabled', false)
+      $('#finish').prop('disabled', false)
+      reStartingGameSamePlayer();
+
+    }else{
+      UpdateScore();
+    }
+})
+
+
+  
+ }); 
 
 function startTimer() {
   timex = setTimeout(function () {
@@ -208,6 +230,7 @@ $('#rankingBtn').click(function () {
 function showHighscore(){
   let rank;
   highScoresList = JSON.parse(localStorage["high-scores"]);
+  
   for (let i = 0; i < 10; i++) {
         
     rank = `${highScoresList[i].playerName}` + ":" + `${highScoresList[i].timeInSeconds}` + "seconds";
@@ -302,6 +325,13 @@ function gettingPlayerName() {
 
 function startingGame(){
   gettingPlayerName(); // ASK FOR PLAYERS NAME IN ORDER TO STORE IT FOR THE RANKING
+  startTimer(); 
+}
+
+function reStartingGameSamePlayer(){
+  hours =0;      mins =0;      seconds =0;
+  $('#hours','#mins').html('00:');
+  $('#seconds').html('00'); 
   startTimer(); 
 }
 
