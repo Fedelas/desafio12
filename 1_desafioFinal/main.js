@@ -1,16 +1,134 @@
 let currentlyEditing;
 let currentlyEditingTimeout;
 let wrap = document.getElementById('wrapper');
+let inputAvatar = document.getElementById('pokemonAvatar');
 let playerName;
+let avatarSrc;
 
+/*
+const colLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+const rowNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+*/
+const colLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+const rowNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-const rowsLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
-const colNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
-const directions = ['red', 'blue', 'orange', 'pink', 'green', 'yellow'];
+const directions = ['Black', 'Blue', 'Orange', 'Pink', 'Green', 'Yellow'];
 const square1BackFace = []; // SEE COMMENT IN FUNCTION chooseSelection AT THE END OF THE DOCUMENT
 //numberOfOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // TO BE USE IN THE FUTURE
 //let {elementA, elementB, elementC, elementD, elementE,elementF,elementG, elementH, elementI}=elementsInRow
+
+/*
+let boardBlue = [
+  "796831452",
+  "135264789",
+  "284759631",
+  "968347215",
+  "421985376",
+  "357126948",
+  "642513897",
+  "819472563",
+  "573698124"
+]
+
+
+let solution = [
+  "796831452",
+  "135264789",
+  "284759631",
+  "968347215",
+  "421985376",
+  "357126948",
+  "642513897",
+  "819472563",
+  "573698124"
+]
+
+let boardBlack=[
+  "387491625",
+  "241568379",
+  "569327418",
+  "758619234",
+  "123784596",
+  "496253187",
+  "934176852",
+  "675832941",
+  "812945763"
+]
+let boardOrange=[
+   "923168457",
+   "465297381",
+   "178345692",
+   "614523879",
+   "352879164",
+   "897614523",
+   "549781236",
+   "231956748",
+   "786432915"
+   
+]
+let boardPink=[
+  "268794135",
+  "935216784",
+  "147385629",
+  "593621847",
+  "674938512",
+  "821547963",
+  "782469351",
+  "319852476",
+  "456173298"
+  
+]
+let boardGreen=[
+  "961347285",
+  "274158693",
+  "385692741",
+  "127986534",
+  "643715829",
+  "859423167",
+  "412569378",
+  "538274916",
+  "796831452",
+]
+let boardYellow=[
+  "573698124",
+  "168247395",
+  "924315786",
+  "256739841",
+  "381452967",
+  "497186253",
+  "639874512",
+  "812563479",
+  "745921638",
+]
+
+//let board=[boardBlack,boardblue, boardorange, boardgreen, boardpink, boardyellow]
+
+let board = {
+  "boardBlack": boardBlack,
+  "boardBlue": boardBlue,
+  "boardOrange": boardOrange,
+  "boardGreen": boardGreen,
+  "boardPink": boardPink,
+  "boardYellow": boardYellow,
+
+};
+//Save the new board
+localStorage.setItem("board", JSON.stringify(board));*/
+
+
+function fillFaceWithNumber(colorFace,i, j,cellNew){
+  const board = JSON.parse(localStorage.getItem("board"));
+  switch(colorFace){
+    case "boardBlack": cellNew.innerText = board.boardBlack[rowNumbers.indexOf(j)][colLetters.indexOf(i)]; break;
+    case "boardBlue": cellNew.innerText = board.boardBlue[rowNumbers.indexOf(j)][colLetters.indexOf(i)]; break;
+    case "boardOrange": cellNew.innerText = board.boardOrange[rowNumbers.indexOf(j)][colLetters.indexOf(i)]; break;
+    case "boardGreen": cellNew.innerText = board.boardGreen[rowNumbers.indexOf(j)][colLetters.indexOf(i)]; break;
+    case "boardPink": cellNew.innerText = board.boardPink[rowNumbers.indexOf(j)][colLetters.indexOf(i)]; break;
+    case "boardYellow": cellNew.innerText = board.boardYellow[rowNumbers.indexOf(j)][colLetters.indexOf(i)]; break;
+  }
+}
+
+
 
 // FUNCTION THAT ALLOWS THE CREATION OF THE FACES AND BUTTONS 
 function nameBtn(i, j, direction) {
@@ -19,20 +137,36 @@ function nameBtn(i, j, direction) {
   faceElement.classList.add(`${direction}` + `Face`); // Name after the color of the face
   wrap.appendChild(faceElement);
   // each Face consists of 9 rows that should be created
-  for (const i of rowsLetters) {
+  for (const i of colLetters) {
     let row = document.createElement('span');
     // each Row consists of 9 cells (columns) that should be created. These cells are HTML buttons
-    for (const j of colNumbers) {
+    for (const j of rowNumbers) {
       let cellNew = document.createElement("button");
       cellNew.classList.add("cell");
       // caracteristics of the cells
-      let text = document.createTextNode(i + j);
+      //let text = document.createTextNode(i + j); ---> TO REMOVE
+      /*
+      let boardColor = JSON.parse(localStorage.getItem("board"))
+      //let boardColor = board[index]
+      let boardFace = `board${direction}`
+      console.log(boardFace)
+      //console.log(boardColor.boardFace)
+      cellNew.innerText = boardFace[colLetters.indexOf(i)][rowNumbers.indexOf(j)]
+      */
+      fillFaceWithNumber(`board${direction}`,i,j,cellNew)
+      
       cellNew.classList.add(`${i + j}`);
       cellNew.classList.add(`${direction}`);
       cellNew.id = direction + String(`${i + j}`);
-      cellNew.appendChild(text);
+      //cellNew.appendChild(text); ---> TO REMOVE
       cellNew.setAttribute("onmousedown", "showOptions(" + cellNew.id + ")"); // this shows the square with numbers 1 to 9 to select from
+      
       row.appendChild(cellNew);
+
+      // COLORING THE BORDERS OF 3x3 SQUARES
+      
+      (rowNumbers.indexOf(j) == 2 || rowNumbers.indexOf(j) == 5 )? cellNew.classList.add("horizontal-line"):cellNew.classList.add("noline");
+      (colLetters.indexOf(i) == 2 || colLetters.indexOf(i) == 5 )? cellNew.classList.add("vertical-line"):cellNew.classList.add("noline");
 
     }
     row.classList.add(`${direction}`);
@@ -45,7 +179,7 @@ function nameBtn(i, j, direction) {
 // Each face should be the same (9x9)
 
 function createFace2(direction) {
-  nameBtn(rowsLetters, colNumbers, direction);
+  nameBtn(colLetters, rowNumbers, direction);
 
 }
 
@@ -55,56 +189,40 @@ for (let i of directions) {
 
 
 // CODE TO MAKE THE CUBE ROTATE
-let xAngle, yAngle, zAngle;
-document.addEventListener('keydown', function (e) {
-  switch (e.keyCode) {
-    // for left key
-    case 37:
-      yAngle -= 30;
-      xAngle -= 30;
-      zAngle = 0;
-      //wrap.style.transform = `rotateX(${xAngle}deg) rotateY(${-yAngle}deg) rotateZ(${0}deg)`
-      wrap.style.transform = `rotateX(${xAngle}deg) rotateY(${-yAngle}deg)`
-      xAngle = xAngle;
-      yAngle = yAngle;
-      zAngle = zAngle;
-      break;
+let xAngle = 0, yAngle = 0,  zAngle = 0;
+document.addEventListener('keydown',function(e)  
+{  
+   switch(e.keyCode)  
+    {  
+   
+   case 37:// for left key  
+    yAngle -= 45;  
+   break;  
+   
+   case 38:// for up key  
+    xAngle += 45;  
+   break;  
+   
+   case 39:// for right key  
+    yAngle += 45;  
+   break;  
+   
+   case 40:// for down key  
+    xAngle -= 45;  
+   break;  
 
-    case 38:// for up key  
-      xAngle += 30;
-      yAngle = 0;
-      zAngle = 0;
-      //wrap.style.transform = `rotateX(${xAngle}deg) rotateY(${0}deg) rotateZ(${0}deg)`
-      wrap.style.transform = `rotateX(${xAngle}deg)`
-      xAngle = xAngle;
-      yAngle = yAngle;
-      zAngle = zAngle;
-      break;
+   case 83:// for s key  
+    zAngle += 45;  
+   break;
 
-    case 39:// for right key  
-      yAngle += 30;
-      xAngle = 0;
-      zAngle = 0;
-      //wrap.style.transform = `rotateX(${0}deg) rotateY(${-yAngle}deg) rotateZ(${0}deg)`
-      wrap.style.transform = `rotateY(${-yAngle}deg)`
-      xAngle = xAngle;
-      yAngle = yAngle;
-      zAngle = zAngle;
-      break;
+   case 87:// for w key  
+    zAngle -= 45;  
+   break; 
+    }  
+    $('#wrapper').css("webkit-transform","rotateX("+xAngle+"deg) rotateY("+yAngle+"deg) rotatez("+zAngle+"deg)");  
+},false);
 
-    case 40:// for down key  
-      zAngle -= 30;
-      xAngle = 0;
-      yAngle = 0;
-      //wrap.style.transform = `rotateX(${0}deg) rotateY(${0}deg) rotateZ(${zAngle}deg)`
-      wrap.style.transform = `rotateZ(${zAngle}deg)`
-      xAngle = xAngle;
-      yAngle = yAngle;
-      zAngle = zAngle;
-      break;
-  }
-  
-})
+
 
 let arraySquare1 = {}; 
 // Destructuring + spread --> the idea is to remove the available posibilities if already used
@@ -229,18 +347,23 @@ $('#rankingBtn').click(function () {
 
 function showHighscore(){
   let rank;
-  highScoresList = JSON.parse(localStorage["high-scores"]);
+  let highScoresList = JSON.parse(localStorage["high-scores"]);
+  
   
   for (let i = 0; i < 10; i++) {
-        
-    rank = `${highScoresList[i].playerName}` + ":" + `${highScoresList[i].timeInSeconds}` + "seconds";
+    let player = highScoresList[i].playerName   // I create this variable because sometimes I get an error in the following line despite it is read
+    rank =  `${player}` + ":" + `${highScoresList[i].timeInSeconds}` + "seconds"; 
   
-  
-   console.log(rank);
+   
    let fragment = document.createElement('li');
    fragment.classList.add("listElementRanking")
     fragment.innerHTML = (typeof(rank) != "undefined" ? rank : "" );
     high_scores.appendChild(fragment);
+
+    const avatarImg = document.createElement("img");
+    avatarImg.src = highScoresList[i].avatar;
+    high_scores.appendChild(avatarImg);
+
     rankingButtonClicked = true
   }
 ;
@@ -268,7 +391,8 @@ function UpdateScore() {
       
       let entry = {
           "playerName": playerName,
-          "timeInSeconds": timeInSeconds
+          "timeInSeconds": timeInSeconds,
+          "avatar": avatarSrc
       };
       //Save the new score
       localStorage.setItem("newScore", JSON.stringify(entry));
@@ -308,11 +432,47 @@ function compareValues(key, order = 'asc') {
 
 
 // GAME BEGINING
+
+//GENERATE A RANDOM POKEMON AVATAR WITH THE NAME OF THE PERSON AND SHOW IT IN THE PAGE AND RANKING
+
+ function getPokemonAvatar(playerNameInput){
+  
+
+  
+    const sumOfChar = playerNameInput.charCodeAt(0) + playerNameInput.charCodeAt(1) ;
+    console.log(sumOfChar)
+  
+  fetch(`https://pokeapi.co/api/v2/pokemon/${sumOfChar}/`)
+  .then( (res) => res.json())
+  .then( (data) => {
+    
+    createPokemonAvatar(data)
+    
+  })
+
+}
+
+
+function createPokemonAvatar(pokemon){
+  const inputAvatar = document.getElementById("pokemonAvatar");
+  const avatarImg = document.createElement("img");
+  avatarSrc = pokemon.sprites.front_default
+  avatarImg.src = pokemon.sprites.front_default;
+  const div = document.createElement ("div");
+  div.appendChild(avatarImg);
+  inputAvatar.append(div)
+}
+
+
+
+
+
 function gettingPlayerName() {
   let input = prompt("PLAYERS NAME:");
 
   if (input !== null && input !== "") {
     playerName = input
+    getPokemonAvatar(playerName);
 
   }
   else {
@@ -334,6 +494,10 @@ function reStartingGameSamePlayer(){
   $('#seconds').html('00'); 
   startTimer(); 
 }
+
+
+
+
 
 startingGame();
 

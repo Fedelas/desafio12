@@ -1,20 +1,20 @@
 /*TIMER*/
 #timer {
-    font-size:50px;
-    margin:0 auto;
-    width:1000px;
-  }
-  
-  #controls {
-    margin:0 auto;    
-  }
-  
-  #controls button {
-    font-size:15px;
-  }
+    font-size: 50px;
+    margin: 0 auto;
+    width: 1000px;
+}
+
+#controls {
+    margin: 0 auto;
+}
+
+#controls button {
+    font-size: 15px;
+}
 
 /* LEADER BOARD SCORE*/
-  section#game .score{
+section#game .score {
     display: block;
     position: absolute;
     top: 10px;
@@ -22,58 +22,59 @@
 }
 
 
-section#game .start .high-scores{
+section#game .start .high-scores {
     text-align: left;
 }
 
 /*CUBE*/
- .container {
-    width              : 400px;
-    height             : 400px;
-    position           : absolute;
-    top                : 0;
-    left               : 0;
-    top                : 50%;
-    left               : 50%;
-    transform          : translate(-50%, -50%);
-    display            : flex;
-    justify-content    : center;
-    align-items        : center;
-    perspective        : 2000px;
+.container {
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 2000px;
 }
 
 
- .box {
+.box {
 
     transform-style: preserve-3d;
-    position       : absolute;
-    width          : 270px;
-    height         : 270px;
-    animation      : move 20s linear infinite;
-    transition     : all 1s ease-out;
+    position: absolute;
+    width: 270px;
+    height: 270px;
+    animation: move 20s linear infinite;
+    transition: all 1s ease-out;
 }
 
 .box div {
-    width                : 270px;
-    height               : 270px;
-    position             : absolute;
-    
-    display              : flex;
-    justify-content      : center;
-    align-items          : center;
-    
-    background-size      : 100%;
-    z-index              : 10;
-    display              : grid;
+    width: 270px;
+    height: 270px;
+    position: absolute;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-size: 100%;
+    z-index: 10;
+    display: grid;
     grid-template-columns: repeat(auto-fill, minmax(calc(270px/9), 1fr));
-    gap                  : 0px;
-    padding              : 0px;
+    gap: 0px;
+    padding: 0px;
 }
+
 /*
 .box div span {
     height          : calc(390/13 px);
     /*background-color: var(--clr);*/
-    /*border-radius   : 10px;
+/*border-radius   : 10px;
     position        : relative;
     z-index         : -1;
     overflow        : hidden;
@@ -83,69 +84,81 @@ section#game .start .high-scores{
 .cell {
     width: 30px;
     height: 30px;
-    
-    
+
     margin: 0px;
     padding: 0px;
     border: 0px;
-  
-    border: 1px solid;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    word-wrap: break-word;
+    flex-wrap: nowrap;
+    background-color: orange;
+    /*con SASS despues puedo modificar el color de la cara*/
+}
 
-   word-wrap: break-word;
-   flex-wrap: nowrap;
-   background-color: orange; /*con SASS despues puedo modificar el color de la cara*/
-  }
+
+.horizontal-line {
+    border-bottom: 4px solid black;
+}
+
+.vertical-line {
+    border-right: 4px solid black;
+}
 
 
-
-.redFace {
+.BlackFace {
     transform: translateZ(-135px) rotateX(180deg);
 }
 
-.red {
-    background-color: red;
+.Black {
+    background-color: black;
 }
 
-.blueFace {
+.BlueFace {
     transform: translateZ(135px) rotateX(180deg) rotateY(180deg) rotateZ(180deg);
 }
-.blue {
-    background-color: blue;
+
+.Blue {
+    background-color: lightskyblue;
 }
 
-.orangeFace {
-    right    : 135px;
+.OrangeFace {
+    right: 135px;
     transform: rotateY(-90deg)rotateZ(180deg) rotate(180deg);
 }
-.orange {
+
+.Orange {
     background-color: orange;
 }
 
-.pinkFace {
-    left     : 135px;
+.PinkFace {
+    left: 135px;
     transform: rotateY(90deg) rotateZ(180deg) rotate(180deg);
 }
-.pink {
+
+.Pink {
     background-color: pink;
 }
 
-.greenFace {
-    bottom   : 135px;
+.GreenFace {
+    bottom: 135px;
     transform: rotateX(90deg);
 }
-.green {
-    background-color: green;
+
+.Green {
+    background-color: lightgreen;
 }
 
-.yellowFace {
-    top      : 135px;
-    transform: rotateX(-90deg);    
+.YellowFace {
+    top: 135px;
+    transform: rotateX(-90deg);
 }
-.yellow {
+
+.Yellow {
     background-color: yellow
 }
 
- /*
+/*
 
  #wrapper{
     width: 270px;
@@ -159,7 +172,7 @@ section#game .start .high-scores{
     word-wrap: break-word;
  }*/
 
- /*
+/*
  .A1, .A2, .A3, .A4, .A5, .A9, .A10, .A11, .A12, .A13,
  .B1, .B2, .B3, .B4, .B5,  .B9, .B10, .B11, .B12, .B13,
  .C1, .C2, .C12, .C13,
@@ -175,17 +188,18 @@ section#game .start .high-scores{
  }*/
 
 
- #selection {
+#selection {
     display: none;
     position: fixed;
 }
-  
-  #selection > .split { /*para armar el bloque de numeros de sugerencia*/
+
+#selection>.split {
+    /*para armar el bloque de numeros de sugerencia*/
     display: block;
-    
-  }
-  
-  #selection > span {
+
+}
+
+#selection>span {
     display: inline-block;
     width: 30px;
     border: 1px solid blueviolet;
@@ -194,16 +208,16 @@ section#game .start .high-scores{
     padding: 2px;
     cursor: pointer;
     text-align: center;
-  }
-  
-  #selection > span:hover {
+}
+
+#selection>span:hover {
     background: #55a;
-  }
+}
 
 
 
 
-  /* ---- CODIGO SIN MODIFICAR ----
+/* ---- CODIGO SIN MODIFICAR ----
 
   
  .container {
@@ -252,7 +266,7 @@ section#game .start .high-scores{
 .box div span {
     height          : calc(390/13 px);
     /*background-color: var(--clr);*/
-    /*border-radius   : 10px;
+/*border-radius   : 10px;
     position        : relative;
     z-index         : -1;
     overflow        : hidden;
