@@ -277,16 +277,19 @@ function generateBoardGame(element,i) {
     return boardFace
 }*/
 
+
 let boardFace = []
 const boardGameStart = JSON.parse(localStorage.getItem("boardSolution"));
 for (let indice = 1; indice<10; indice++){
-console.log(boardGameStart)
+//console.log(boardGameStart)
 let element = boardGameStart.map(function (solution) {
     let rowNr=`row${indice}`
     console.log(rowNr)
     return solution[rowNr] // will return an array of six element. Each element represents the 9 values of the selected row in each of the color faces. For example is row1 is selected it will return ['', '796831452', '961347285', '923168457', '268794135', '573698124']
-  })
+  
+})
 console.log(element)
+generateBoardGame(element)}
 
 
 function generateBoardGame(element) {
@@ -303,6 +306,29 @@ for (let j = 0; j < element.length; j++) {
 }
 return boardFace
 }
-generateBoardGame(element)
-console.log(boardFace)
+
+function gameStart(boardFace){
+    let gameStart=[{colorFace: "Black"},{colorFace: "Blue"},{colorFace: "Orange"},{colorFace: "Pink"},{colorFace: "Green"},{colorFace: "Yellow"}]
+    
+    gameStart.forEach(element => {
+        let i = gameStart.indexOf(element)
+        element.row1 =boardFace[i],
+        element.row2 =boardFace[i+5],
+        element.row3 =boardFace[i+10],
+        element.row4 =boardFace[i+15],
+        element.row5 =boardFace[i+20],
+        element.row6 =boardFace[i+25],
+        element.row7 =boardFace[i+30],
+        element.row8 =boardFace[i+35],
+        element.row9 =boardFace[i+40]       
+        
+    }); 
+    
+    return gameStart
 }
+
+
+
+localStorage.setItem("boardGameStart", JSON.stringify(gameStart(boardFace)));
+//console.log(gameStart(boardFace)) // ACA LOGRO HACER UNA ARRAY CON 54 SUBARRAYS CON GUIONES
+
