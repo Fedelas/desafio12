@@ -4,6 +4,7 @@ let wrap = document.getElementById('wrapper');
 let inputAvatar = document.getElementById('pokemonAvatar');
 let playerName;
 let avatarSrc;
+let colIndex;
 
 /*
 const colLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
@@ -115,7 +116,7 @@ let board = {
 //Save the new board
 localStorage.setItem("board", JSON.stringify(board));*/
 
-
+/*
 function fillFaceWithNumber(colorFace,i, j,cellNew){
   const board = JSON.parse(localStorage.getItem("board"));
   switch(colorFace){
@@ -126,9 +127,37 @@ function fillFaceWithNumber(colorFace,i, j,cellNew){
     case "boardPink": cellNew.innerText = board.boardPink[rowNumbers.indexOf(j)][colLetters.indexOf(i)]; break;
     case "boardYellow": cellNew.innerText = board.boardYellow[rowNumbers.indexOf(j)][colLetters.indexOf(i)]; break;
   }
+}*/
+
+
+
+//------
+function fillFaceWithNumber(colorFace, i, j, cellNew) {
+
+  switch (colorFace) {
+    case "boardBlack": cellNew.innerText = "0"; break;
+    case "boardBlue": cellNew.innerText = getSolutionNr(i, j, 1); break;
+    case "boardOrange": cellNew.innerText = getSolutionNr(i, j, 2); break;
+    case "boardPink": cellNew.innerText = getSolutionNr(i, j, 3); break;
+    case "boardGreen": cellNew.innerText = getSolutionNr(i, j, 4); break;
+    case "boardYellow": cellNew.innerText = getSolutionNr(i, j, 5); break;
+  }
 }
 
 
+function getSolutionNr(colIndex, rowIndex, colorFaceIndex) {
+  const boardSolution = JSON.parse(localStorage.getItem("boardSolution"));
+  let rowNr = `row${rowIndex}`
+  let rowArrayNr = boardSolution.map(function (solution) {
+    return solution[rowNr] // will return an array of six element. Each element represents the 9 values of the selected row in each of the color faces. For example is row1 is selected it will return ['', '796831452', '961347285', '923168457', '268794135', '573698124']
+  })
+
+  let col = colIndex
+  let numberToFill = rowArrayNr[colorFaceIndex][colIndex]
+  return numberToFill
+}
+
+//-----
 
 // FUNCTION THAT ALLOWS THE CREATION OF THE FACES AND BUTTONS 
 function nameBtn(i, j, direction) {
@@ -139,6 +168,7 @@ function nameBtn(i, j, direction) {
   // each Face consists of 9 rows that should be created
   for (const i of colLetters) {
     let row = document.createElement('span');
+    colIndex = colLetters.indexOf(i)
     // each Row consists of 9 cells (columns) that should be created. These cells are HTML buttons
     for (const j of rowNumbers) {
       let cellNew = document.createElement("button");
@@ -153,20 +183,20 @@ function nameBtn(i, j, direction) {
       //console.log(boardColor.boardFace)
       cellNew.innerText = boardFace[colLetters.indexOf(i)][rowNumbers.indexOf(j)]
       */
-      fillFaceWithNumber(`board${direction}`,i,j,cellNew)
-      
+      fillFaceWithNumber(`board${direction}`, colIndex, j, cellNew)
+
       cellNew.classList.add(`${i + j}`);
       cellNew.classList.add(`${direction}`);
       cellNew.id = direction + String(`${i + j}`);
       //cellNew.appendChild(text); ---> TO REMOVE
       cellNew.setAttribute("onmousedown", "showOptions(" + cellNew.id + ")"); // this shows the square with numbers 1 to 9 to select from
-      
+
       row.appendChild(cellNew);
 
       // COLORING THE BORDERS OF 3x3 SQUARES
-      
-      (rowNumbers.indexOf(j) == 2 || rowNumbers.indexOf(j) == 5 )? cellNew.classList.add("horizontal-line"):cellNew.classList.add("noline");
-      (colLetters.indexOf(i) == 2 || colLetters.indexOf(i) == 5 )? cellNew.classList.add("vertical-line"):cellNew.classList.add("noline");
+
+      (rowNumbers.indexOf(j) == 2 || rowNumbers.indexOf(j) == 5) ? cellNew.classList.add("horizontal-line") : cellNew.classList.add("noline");
+      (colLetters.indexOf(i) == 2 || colLetters.indexOf(i) == 5) ? cellNew.classList.add("vertical-line") : cellNew.classList.add("noline");
 
     }
     row.classList.add(`${direction}`);
@@ -189,51 +219,49 @@ for (let i of directions) {
 
 
 // CODE TO MAKE THE CUBE ROTATE
-let xAngle = 0, yAngle = 0,  zAngle = 0;
-document.addEventListener('keydown',function(e)  
-{  
-   switch(e.keyCode)  
-    {  
-   
-   case 37:// for left key  
-    yAngle -= 45;  
-   break;  
-   
-   case 38:// for up key  
-    xAngle += 45;  
-   break;  
-   
-   case 39:// for right key  
-    yAngle += 45;  
-   break;  
-   
-   case 40:// for down key  
-    xAngle -= 45;  
-   break;  
+let xAngle = 0, yAngle = 0, zAngle = 0;
+document.addEventListener('keydown', function (e) {
+  switch (e.keyCode) {
 
-   case 83:// for s key  
-    zAngle += 45;  
-   break;
+    case 37:// for left key  
+      yAngle -= 45;
+      break;
 
-   case 87:// for w key  
-    zAngle -= 45;  
-   break; 
-    }  
-    $('#wrapper').css("webkit-transform","rotateX("+xAngle+"deg) rotateY("+yAngle+"deg) rotatez("+zAngle+"deg)");  
-},false);
+    case 38:// for up key  
+      xAngle += 45;
+      break;
+
+    case 39:// for right key  
+      yAngle += 45;
+      break;
+
+    case 40:// for down key  
+      xAngle -= 45;
+      break;
+
+    case 83:// for s key  
+      zAngle += 45;
+      break;
+
+    case 87:// for w key  
+      zAngle -= 45;
+      break;
+  }
+  $('#wrapper').css("webkit-transform", "rotateX(" + xAngle + "deg) rotateY(" + yAngle + "deg) rotatez(" + zAngle + "deg)");
+}, false);
 
 
 
-let arraySquare1 = {}; 
+let arraySquare1 = {};
 // Destructuring + spread --> the idea is to remove the available posibilities if already used
-let {elementosCompletados, ...rest} = {elementosCompletados: arraySquare1, val1: 1, val2: 2, val3:3, val4:4, val5:5, val6:6, val7:7, val8:8, val9:9};
+let { elementosCompletados, ...rest } = { elementosCompletados: arraySquare1, val1: 1, val2: 2, val3: 3, val4: 4, val5: 5, val6: 6, val7: 7, val8: 8, val9: 9 };
 
 
 // FUNCTION TO CHOSE THE NUMBER AND FILL THE BUTTON WITH THE CHOSEN NUMBER
 function chooseSelection(sel) {
   let selector = document.getElementById('selection');
   selector.style.display = 'none';
-  (sel.id!=="closeOptions")? currentlyEditing.innerHTML = sel.innerHTML : ""; // in order to allow to close the selection chart
+  (sel.id !== "closeOptions") ? currentlyEditing.innerHTML = sel.innerHTML : ""; // in order to allow to close the selection chart
   //currentlyEditing = null;
   // CODE TO BE USE IN THE FUTURE TO GET THE VALUES OF EVERY CELL
   //let selectedNumber = sel.textContent
@@ -241,11 +269,11 @@ function chooseSelection(sel) {
   let idToLook = currentlyEditing.id;
   arraySquare1[idToLook] = currentlyEditing.textContent;
   //console.log(arraySquare1);
- }
+}
 
 // FUNCTION TO SHOW THE POSIBLE NUMBERS --- IT IS SHOW AS A BLACK SQUARE
 function showOptions(nuevoBoton) {
-  
+
   console.log(rest); // to be use in future to show in DOM the available posibilities
 
   currentlyEditing = nuevoBoton;
@@ -272,7 +300,7 @@ $('#pause').click(function () {
   clearTimeout(timex); // clearTimeout() method prevents the setTimeout() method from executing the function.
 });
 
- $('#finish').click(function () {
+$('#finish').click(function () {
   clearTimeout(timex); // clearTimeout() method prevents the setTimeout() method from executing the function.
   $('#continueTime').prop('disabled', true)
   $('#pause').prop('disabled', true)
@@ -285,7 +313,7 @@ $('#pause').click(function () {
     icon: 'success',
     confirmButtonText: "PLAY AGAIN",
     showCancelButton: true,
-    
+
   }).then((result) => {
     if (result.value) {
       UpdateScore();
@@ -294,14 +322,14 @@ $('#pause').click(function () {
       $('#finish').prop('disabled', false)
       reStartingGameSamePlayer();
 
-    }else{
+    } else {
       UpdateScore();
     }
-})
+  })
 
 
-  
- }); 
+
+});
 
 function startTimer() {
   timex = setTimeout(function () {
@@ -334,75 +362,100 @@ function startTimer() {
 
 ////// RANKING
 // It will be stored in LocalStore and access only the first ten fastest players
-let game = document.querySelector("section#game");
-let score = game.querySelector("section#game span.score");
-let high_scores = game.querySelector("section#game ol.high-scores");
-let rankingButtonClicked = false
+//let game = document.querySelector("section#game");
+//let score = game.querySelector("section#game span.score");
+//let high_scores = game.querySelector("section#game ol.high-scores");
+
+let game = document.querySelector("#modalRanking");
+let high_scores = game.querySelector("ol.high-scores");
+const modalRanking = document.getElementById("modalRanking");
+
+//let rankingButtonClicked = false
 
 $('#rankingBtn').click(function () {
+  showHighscore()
+  /*
   (rankingButtonClicked == false)? showHighscore() : hideHighScore();
-  console.log(rankingButtonClicked);
-} 
+  console.log(rankingButtonClicked);*/
+}
 );
 
-function showHighscore(){
+$('#closeBtn').click(function () {
+  hideHighScore()
+  /*
+  (rankingButtonClicked == false)? showHighscore() : hideHighScore();
+  console.log(rankingButtonClicked);*/
+}
+);
+
+
+
+function showHighscore() {
+  modalRanking.style.display = "block";
   let rank;
   let highScoresList = JSON.parse(localStorage["high-scores"]);
-  
-  
+
+  const title = document.createElement("span");
+  title.innerText = "HIGH SCORE";
+  high_scores.appendChild(title);
+
   for (let i = 0; i < 10; i++) {
-    let player = highScoresList[i].playerName   // I create this variable because sometimes I get an error in the following line despite it is read
-    rank =  `${player}` + ":" + `${highScoresList[i].timeInSeconds}` + "seconds"; 
-  
-   
-   let fragment = document.createElement('li');
-   fragment.classList.add("listElementRanking")
-    fragment.innerHTML = (typeof(rank) != "undefined" ? rank : "" );
-    high_scores.appendChild(fragment);
+    let player = highScoresList[i].playerName   // I create this variable because sometimes I get an error in the following line despite it is
+    rank = `${player}` + ":" + `${highScoresList[i].timeInSeconds}` + "seconds";
 
     const avatarImg = document.createElement("img");
     avatarImg.src = highScoresList[i].avatar;
     high_scores.appendChild(avatarImg);
 
-    rankingButtonClicked = true
+
+    let fragment = document.createElement('li');
+    fragment.classList.add("listElementRanking")
+    fragment.innerHTML = (typeof (rank) != "undefined" ? rank : "");
+    high_scores.appendChild(fragment);
+
+
+
+    //rankingButtonClicked = true
   }
-;
+  ;
 }
 
-function hideHighScore(){
+function hideHighScore() {
+
   const parentToRemoveChildsFrom = document.getElementById("high-scores")
   removeChilds(parentToRemoveChildsFrom);
-  rankingButtonClicked = false;
-  
+  modalRanking.style.display = "none";
+  //rankingButtonClicked = false;
+
 }
 
 
 const removeChilds = (parent) => {
   while (parent.lastChild) {
-      parent.removeChild(parent.lastChild);
+    parent.removeChild(parent.lastChild);
   }
 };
 
 function UpdateScore() {
 
-      // Parse any JSON previously stored in allEntries
-      let HighScores = JSON.parse(localStorage.getItem("high-scores"));
-      if(HighScores == null) HighScores = [];
-      
-      let entry = {
-          "playerName": playerName,
-          "timeInSeconds": timeInSeconds,
-          "avatar": avatarSrc
-      };
-      //Save the new score
-      localStorage.setItem("newScore", JSON.stringify(entry));
-      // Save allEntries back to local storage in ascending order related to the time in seconds it took to solve the game
-      HighScores.push(entry);
-      HighScores = HighScores.sort(compareValues("timeInSeconds")); 
-      localStorage.setItem("high-scores", JSON.stringify(HighScores));
-      }
+  // Parse any JSON previously stored in allEntries
+  let HighScores = JSON.parse(localStorage.getItem("high-scores"));
+  if (HighScores == null) HighScores = [];
 
-  
+  let entry = {
+    "playerName": playerName,
+    "timeInSeconds": timeInSeconds,
+    "avatar": avatarSrc
+  };
+  //Save the new score
+  localStorage.setItem("newScore", JSON.stringify(entry));
+  // Save allEntries back to local storage in ascending order related to the time in seconds it took to solve the game
+  HighScores.push(entry);
+  HighScores = HighScores.sort(compareValues("timeInSeconds"));
+  localStorage.setItem("high-scores", JSON.stringify(HighScores));
+}
+
+
 
 // FUNCTION TO SORT THE VALUES IN ASCENDING / DESC ORDER
 
@@ -435,30 +488,30 @@ function compareValues(key, order = 'asc') {
 
 //GENERATE A RANDOM POKEMON AVATAR WITH THE NAME OF THE PERSON AND SHOW IT IN THE PAGE AND RANKING
 
- function getPokemonAvatar(playerNameInput){
-  
+function getPokemonAvatar(playerNameInput) {
 
-  
-    const sumOfChar = playerNameInput.charCodeAt(0) + playerNameInput.charCodeAt(1) ;
-    console.log(sumOfChar)
-  
+
+
+  const sumOfChar = playerNameInput.charCodeAt(0) + playerNameInput.charCodeAt(1);
+  console.log(sumOfChar)
+
   fetch(`https://pokeapi.co/api/v2/pokemon/${sumOfChar}/`)
-  .then( (res) => res.json())
-  .then( (data) => {
-    
-    createPokemonAvatar(data)
-    
-  })
+    .then((res) => res.json())
+    .then((data) => {
+
+      createPokemonAvatar(data)
+
+    })
 
 }
 
 
-function createPokemonAvatar(pokemon){
+function createPokemonAvatar(pokemon) {
   const inputAvatar = document.getElementById("pokemonAvatar");
   const avatarImg = document.createElement("img");
   avatarSrc = pokemon.sprites.front_default
   avatarImg.src = pokemon.sprites.front_default;
-  const div = document.createElement ("div");
+  const div = document.createElement("div");
   div.appendChild(avatarImg);
   inputAvatar.append(div)
 }
@@ -483,16 +536,16 @@ function gettingPlayerName() {
   console.log(playerName);
 }
 
-function startingGame(){
+function startingGame() {
   gettingPlayerName(); // ASK FOR PLAYERS NAME IN ORDER TO STORE IT FOR THE RANKING
-  startTimer(); 
+  startTimer();
 }
 
-function reStartingGameSamePlayer(){
-  hours =0;      mins =0;      seconds =0;
-  $('#hours','#mins').html('00:');
-  $('#seconds').html('00'); 
-  startTimer(); 
+function reStartingGameSamePlayer() {
+  hours = 0; mins = 0; seconds = 0;
+  $('#hours', '#mins').html('00:');
+  $('#seconds').html('00');
+  startTimer();
 }
 
 
