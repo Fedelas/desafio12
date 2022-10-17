@@ -160,10 +160,10 @@ function getSolutionNr(colIndex, rowIndex, colorFaceIndex) {
 //-----
 
 // FUNCTION THAT ALLOWS THE CREATION OF THE FACES AND BUTTONS 
-function nameBtn(i, j, direction) {
+function nameBtn(i, j, color) {
   // CREATION OF THE FACE
   let faceElement = document.createElement("div")
-  faceElement.classList.add(`${direction}` + `Face`); // Name after the color of the face
+  faceElement.classList.add(`${color}` + `Face`); // Name after the color of the face
   wrap.appendChild(faceElement);
   // each Face consists of 9 rows that should be created
   for (const i of colLetters) {
@@ -178,30 +178,32 @@ function nameBtn(i, j, direction) {
       /*
       let boardColor = JSON.parse(localStorage.getItem("board"))
       //let boardColor = board[index]
-      let boardFace = `board${direction}`
+      let boardFace = `board${color}`
       console.log(boardFace)
       //console.log(boardColor.boardFace)
       cellNew.innerText = boardFace[colLetters.indexOf(i)][rowNumbers.indexOf(j)]
       */
-      fillFaceWithNumber(`board${direction}`, colIndex, j, cellNew);
+      fillFaceWithNumber(`board${color}`, colIndex, j, cellNew);
 
       (cellNew.innerText=="-") ? cellNew.classList.add("valueToFind") : cellNew.classList.add("valueGiven");
 
       cellNew.classList.add(`${i + j}`);
-      cellNew.classList.add(`${direction}`);
-      cellNew.id = direction + String(`${i + j}`);
+      cellNew.classList.add(`${color}`);
+      cellNew.id = color + String(`${i + j}`);
       //cellNew.appendChild(text); ---> TO REMOVE
       cellNew.setAttribute("onmousedown", "showOptions(" + cellNew.id + ")"); // this shows the square with numbers 1 to 9 to select from
 
       row.appendChild(cellNew);
 
       // COLORING THE BORDERS OF 3x3 SQUARES
-
-      (rowNumbers.indexOf(j) == 2 || rowNumbers.indexOf(j) == 5) ? cellNew.classList.add("horizontal-line") : cellNew.classList.add("noline");
-      (colLetters.indexOf(i) == 2 || colLetters.indexOf(i) == 5) ? cellNew.classList.add("vertical-line") : cellNew.classList.add("noline");
-
+      
+      (rowNumbers.indexOf(j) == 2 || rowNumbers.indexOf(j) == 5) ? cellNew.classList.add("horizontal-line-bottom") : cellNew.classList.add("noline");
+      (rowNumbers.indexOf(j) == 3 || rowNumbers.indexOf(j) == 6) ? cellNew.classList.add("horizontal-line-top") : cellNew.classList.add("noline");
+      (colLetters.indexOf(i) == 2 || colLetters.indexOf(i) == 5) ? cellNew.classList.add("vertical-line-right") : cellNew.classList.add("noline");
+      (colLetters.indexOf(i) == 3 || colLetters.indexOf(i) == 6) ? cellNew.classList.add("vertical-line-left") : cellNew.classList.add("noline");
+    
     }
-    row.classList.add(`${direction}`);
+    row.classList.add(`${color}`);
     faceElement.appendChild(row);
 
   }
@@ -210,8 +212,8 @@ function nameBtn(i, j, direction) {
 // CREATE FACE FUNCTION
 // Each face should be the same (9x9)
 
-function createFace2(direction) {
-  nameBtn(colLetters, rowNumbers, direction);
+function createFace2(color) {
+  nameBtn(colLetters, rowNumbers, color);
 
 }
 

@@ -102,12 +102,19 @@ section#game .start .high-scores {
 }
 
 
-.horizontal-line {
-    border-bottom: 4px solid black;
+.horizontal-line-bottom {
+    border-bottom: 2px solid black;
 }
 
-.vertical-line {
-    border-right: 4px solid black;
+.horizontal-line-top {
+    border-top: 2px solid black;
+}
+
+.vertical-line-right {
+    border-right: 2px solid black;
+}
+.vertical-line-left {
+    border-left: 2px solid black;
 }
 
 
