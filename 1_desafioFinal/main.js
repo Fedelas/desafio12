@@ -13,7 +13,7 @@ const rowNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const colLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
 const rowNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-const directions = ['Black', 'Blue', 'Orange', 'Pink', 'Green', 'Yellow'];
+const sideColors = ['Black', 'Blue', 'Orange', 'Pink', 'Green', 'Yellow'];
 const square1BackFace = []; // SEE COMMENT IN FUNCTION chooseSelection AT THE END OF THE DOCUMENT
 //numberOfOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // TO BE USE IN THE FUTURE
 //let {elementA, elementB, elementC, elementD, elementE,elementF,elementG, elementH, elementI}=elementsInRow
@@ -146,7 +146,7 @@ function fillFaceWithNumber(colorFace, i, j, cellNew) {
 
 
 function getSolutionNr(colIndex, rowIndex, colorFaceIndex) {
-  const boardSolution = JSON.parse(localStorage.getItem("boardSolution"));
+  const boardSolution = JSON.parse(localStorage.getItem("boardGameStart"));
   let rowNr = `row${rowIndex}`
   let rowArrayNr = boardSolution.map(function (solution) {
     return solution[rowNr] // will return an array of six element. Each element represents the 9 values of the selected row in each of the color faces. For example is row1 is selected it will return ['', '796831452', '961347285', '923168457', '268794135', '573698124']
@@ -183,7 +183,9 @@ function nameBtn(i, j, direction) {
       //console.log(boardColor.boardFace)
       cellNew.innerText = boardFace[colLetters.indexOf(i)][rowNumbers.indexOf(j)]
       */
-      fillFaceWithNumber(`board${direction}`, colIndex, j, cellNew)
+      fillFaceWithNumber(`board${direction}`, colIndex, j, cellNew);
+
+      (cellNew.innerText=="-") ? cellNew.classList.add("valueToFind") : cellNew.classList.add("valueGiven");
 
       cellNew.classList.add(`${i + j}`);
       cellNew.classList.add(`${direction}`);
@@ -213,7 +215,7 @@ function createFace2(direction) {
 
 }
 
-for (let i of directions) {
+for (let i of sideColors) {
   createFace2(i);
 }
 
@@ -251,8 +253,8 @@ document.addEventListener('keydown', function (e) {
 }, false);
 
 
-
-let arraySquare1 = {};
+let row1=[]
+let arraySquare1 = [{colorFace: "Blue"}];
 // Destructuring + spread --> the idea is to remove the available posibilities if already used
 let { elementosCompletados, ...rest } = { elementosCompletados: arraySquare1, val1: 1, val2: 2, val3: 3, val4: 4, val5: 5, val6: 6, val7: 7, val8: 8, val9: 9 };
 
@@ -268,13 +270,46 @@ function chooseSelection(sel) {
   //square1BackFace.push(selectedNumber); // This is added to test the future function of populating an array
   let idToLook = currentlyEditing.id;
   arraySquare1[idToLook] = currentlyEditing.textContent;
-  //console.log(arraySquare1);
+  console.log(arraySquare1);
+}
+let colorFace2
+function getProposedSolution(colorFace2){
+  // let button = document.getElementsByTagName("button")
+  let colorButtons = document.querySelectorAll(`button.${colorFace2}`)
+  /*
+  colorButtons.forEach(element => {
+    let idToLook = element.id;
+  blueButtonsArray[idToLook] = currentlyEditing.textContent;
+  });*/
+  let colorSolutionProposed={colorFace: `${colorFace2}`}
+  for (let i = 0; i < 9; i++) {
+    let rowNr=`row${i+1}`
+    rowNr= [colorButtons[i].innerHTML,colorButtons[i+9].innerHTML,colorButtons[i+18].innerHTML,colorButtons[i+27].innerHTML,colorButtons[i+36].innerHTML,colorButtons[i+45].innerHTML,colorButtons[i+54].innerHTML,colorButtons[i+63].innerHTML,colorButtons[i+72].innerHTML]
+    console.log(`row${i+1}:${rowNr.join('')}`)
+    colorSolutionProposed[`row${i+1}`]=`${rowNr.join('')}`;
+}
+  console.log(colorSolutionProposed)
+  return colorSolutionProposed
+}
+
+let proposedSolution = []
+let sol
+
+function uploadSolution(){
+sideColors.forEach(element => {
+  sol = getProposedSolution(element)
+  proposedSolution[sideColors.indexOf(element)]=sol
+})
+  console.log(sol)  
+
+;
+localStorage.setItem("proposedSolution", JSON.stringify(proposedSolution));
 }
 
 // FUNCTION TO SHOW THE POSIBLE NUMBERS --- IT IS SHOW AS A BLACK SQUARE
 function showOptions(nuevoBoton) {
 
-  console.log(rest); // to be use in future to show in DOM the available posibilities
+  //console.log(rest); // to be use in future to show in DOM the available posibilities
 
   currentlyEditing = nuevoBoton;
   //let selector = document.getElementById('selection');
@@ -300,7 +335,24 @@ $('#pause').click(function () {
   clearTimeout(timex); // clearTimeout() method prevents the setTimeout() method from executing the function.
 });
 
+function checkSolution(){
+let sol1=JSON.parse(localStorage.getItem("boardSolution"))
+let sol2=JSON.parse(localStorage.getItem("proposedSolution"))
+let sol3=JSON.stringify(sol1)
+console.log(sol3)
+let sol4=JSON.stringify(sol2)
+console.log(sol4)
+let isSolutionEqual = (sol3==sol4)
+return isSolutionEqual
+}
+
+
 $('#finish').click(function () {
+  uploadSolution();
+  (checkSolution()) ? answerCorrect() : "" ;
+
+
+  function answerCorrect(){
   clearTimeout(timex); // clearTimeout() method prevents the setTimeout() method from executing the function.
   $('#continueTime').prop('disabled', true)
   $('#pause').prop('disabled', true)
@@ -329,7 +381,7 @@ $('#finish').click(function () {
 
 
 
-});
+}});
 
 function startTimer() {
   timex = setTimeout(function () {

@@ -163,6 +163,18 @@ section#game .start .high-scores {
     background-color: yellow
 }
 
+.valueToFind{
+    color: #ddd;
+    background-color: grey;
+}
+
+.valueGiven{
+    font-weight: bold;
+    color: black;
+    pointer-events:none; /* to avoid selection*/
+
+}
+
 /*
 
  #wrapper{
