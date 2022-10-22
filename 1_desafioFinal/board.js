@@ -1,190 +1,7 @@
-localStorage.removeItem("proposedSolution")
+localStorage.removeItem("proposedSolution") // the proposed solution is the solution it will be compared to. First we have to remove it
 
-/*let boardBlue = [
-    "796831452",
-    "135264789",
-    "284759631",
-    "968347215",
-    "421985376",
-    "357126948",
-    "642513897",
-    "819472563",
-    "573698124"
-]
-
-
-let solution = [
-    "796831452",
-    "135264789",
-    "284759631",
-    "968347215",
-    "421985376",
-    "357126948",
-    "642513897",
-    "819472563",
-    "573698124"
-]
-
-let boardBlack = [ 
-    "387491625",
-    "241568379",
-    "569327418",
-    "758619234",
-    "123784596",
-    "496253187",
-    "934176852",
-    "675832941",
-    "812945763"
-]
-let boardOrange = [
-    "923168457",
-    "465297381",
-    "178345692",
-    "614523879",
-    "352879164",
-    "897614523",
-    "549781236",
-    "231956748",
-    "786432915"
-
-]
-let boardPink = [
-    "268794135",
-    "935216784",
-    "147385629",
-    "593621847",
-    "674938512",
-    "821547963",
-    "782469351",
-    "319852476",
-    "456173298"
-
-]
-let boardGreen = [
-    "961347285",
-    "274158693",
-    "385692741",
-    "127986534",
-    "643715829",
-    "859423167",
-    "412569378",
-    "538274916",
-    "796831452",
-]
-let boardYellow = [
-    "573698124",
-    "168247395",
-    "924315786",
-    "256739841",
-    "381452967",
-    "497186253",
-    "639874512",
-    "812563479",
-    "745921638",
-]
-
-//let board=[boardBlack,boardblue, boardorange, boardgreen, boardpink, boardyellow]
-let board = {
-    "boardBlack": boardBlack,
-    "boardBlue": boardBlue,
-    "boardOrange": boardOrange,
-    "boardGreen": boardGreen,
-    "boardPink": boardPink,
-    "boardYellow": boardYellow,
-};
-
-//Save the new board
-localStorage.setItem("board", JSON.stringify(board));*/
-
-/*
-
-// generate the boardGame aka board without all the numbers. It is generated from the solution
-let boardFace = []
-function generateBoardGame(element,i) {
-
-    const complexity = .5; // 0 to .99 if more then more letters in src string will be replaced by random ones 
-    const randsArr = ("---------").split('').sort(function () { return 0.5 - Math.random() });
-
-    for (let j = 0; j < element.length; j++) {
-            let srcArr = (element[j]).split('');
-            result = $.map(srcArr, function (el) { return (Math.random() > complexity) ? el : (randsArr.length) ? randsArr.shift() : el; }).join('');
-        
-        boardFace.push(result)
-        
-    }
-    
-    return boardFace
-    
-    
-
-}*/
-
-
-
-
-//let boardGame = new Map();
-
-
-//let boardFaceNames = [boardBlack, boardBlue, boardGreen, boardOrange, boardPink, boardYellow]
-//let boardFaceNames = {boardBlack:boardBlack, boardBlue:boardBlue, boardGreen:boardGreen, boardOrange:boardOrange, boardPink:boardPink, boardYellow:boardYellow}
-/*
-function getKeyandValue(boardGame){
-for (let i=0; i<6;i++){
-    let key2 = Object.keys(board)[i]
-    let value2 = Object.values(board)[i]
-    console.log(value2)
-    value2[i] = generateBoardGame(value2)
-    boardGame.set(key2,value2[i])
-
-}
-console.log(boardGame)
-return boardGame
-}*/
-
-/*
-  let key2 = Object.keys(boardFaceNames)
-    let value2 = Object.values(boardFaceNames)
-    console.log(key2)
-    console.log(value2)
-    value2 = generateBoardGame(value2)
-    boardGame.set(key2,value2)
-    console.log(boardGame)*/
-
-/*
-for (const boardFaceName of boardFaceNames){
-    let key2 = Object.keys(user)
-    let value2 = Object.values(user)
-    console.log(key2)
-    console.log(value2)}*/
-
-
-/*
-function getKeyandValue(boardGame){
-    for (const boardFaceName of boardFaceNames){
-        console.log(boardFaceName)
-        let key2 = Object.keys(boardFaceName)
-        let value2 = Object.values(boardFaceName)
-        value2 = generateBoardGame(value2)
-        console.log(value2)
-        boardGame.set(boardFaceName,value2)
-        //console.log(boardGame)
-    }
-    
-    return boardGame
-    }
-
-
-
-
-getKeyandValue(boardGame)
-
-boardGame = Object.fromEntries(boardGame); // to convert Map into Object
-
-localStorage.setItem("boardGame", JSON.stringify(boardGame));*/
-
-
-
-//Creation of FaceObjects. These objects will be use for the creation of the initial setup and to see if the solution is correct.
+//------GAME SOLUTION OBJECTS.-----
+//These objects will be use for the creation of the initial setup and to see if the solution is correct.
 let gameSolution= [ {
     colorFace: "Black",
     row1:"000000000",
@@ -257,55 +74,28 @@ let gameSolution= [ {
     row8:"812563479",
     row9:"745921638",
 }]
+localStorage.setItem("boardSolution", JSON.stringify(gameSolution)); // stores the correct solution
+//-----------
 
-
-localStorage.setItem("boardSolution", JSON.stringify(gameSolution));
-
-
-// generate the boardGame aka board without all the numbers. It is generated from the solution
-/*let boardFace = []
-function generateBoardGame(element,i) {
-
-    const complexity = .5; // 0 to .99 if more then more letters in src string will be replaced by random ones 
-    const randsArr = ("---------").split('').sort(function () { return 0.5 - Math.random() });
-
-    for (let j = 1; j < element.length; j++) {
-            let srcArr = (element[j]).split('');
-            result = $.map(srcArr, function (el) { return (Math.random() > complexity) ? el : (randsArr.length) ? randsArr.shift() : el; }).join('');
-        
-        boardFace.push(result)
-        
-    }
-    return boardFace
-}*/
-
-
+// ---------FILL ALL THE CELLS WITH EITHER - OR A NUMBER. To do that we work from the solution
 let boardFace = []
 const boardGameStart = JSON.parse(localStorage.getItem("boardSolution"));
 for (let indice = 1; indice<10; indice++){
-//console.log(boardGameStart)
 let element = boardGameStart.map(function (solution) {
     let rowNr=`row${indice}`
-    console.log(rowNr)
     return solution[rowNr] // will return an array of six element. Each element represents the 9 values of the selected row in each of the color faces. For example is row1 is selected it will return ['000000000', '796831452', '961347285', '923168457', '268794135', '573698124']
   
 })
-console.log(`este es el elemento ${element} y esta su longitud ${element.length}`)
 generateBoardGame(element)}
 
 
 function generateBoardGame(element) {
-//let rowNr = `row${rowIndex}`
-const complexity = .1; // 0 to .99 if more then more letters in src string will be replaced by random ones 
-//const randsArr = ("---------").split('').sort(function () { return 0.5 - Math.random() });
+const complexity = .5; // 0 to .99 if more then more letters in src string will be replaced by random ones 
 const randsArr = ("------------------------------------------------------").split('');
 for (let j = 0; j < 6; j++) {
         let srcArr = (element[j]).split('');
-        console.log(`este es el scrArr ${srcArr} y esta su longitud ${element[j].length}`)
         result = $.map(srcArr, function (el) { return (Math.random() > complexity) ? el : (randsArr.length) ? randsArr.shift() : el; }).join('');
-    
-    boardFace.push(result)
-    
+        boardFace.push(result)
 }
 return boardFace
 }
@@ -326,20 +116,15 @@ function gameStart(boardFace){
         element.row9 =boardFace[i+48]       
         
     }); 
-    
     return gameStart
 }
 
-
-console.log(boardFace)
 localStorage.setItem("boardGameStart", JSON.stringify(gameStart(boardFace)));
+//----------
 
-
+/*---- COMPARE PROPOSED SOLUTION WITH GAMESOLUTION 
 let sol1=JSON.parse(localStorage.getItem("boardSolution"))
 let sol2=JSON.parse(localStorage.getItem("proposedSolution"))
 let sol3=JSON.stringify(sol1)
-console.log(sol3)
 let sol4=JSON.stringify(sol2)
-console.log(sol4)
-let isSolutionEqual = (sol3==sol4)
-console.log(isSolutionEqual)
+let isSolutionEqual = (sol3==sol4) // return true if it is correct*/
