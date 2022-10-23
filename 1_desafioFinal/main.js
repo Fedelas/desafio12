@@ -6,17 +6,11 @@ let playerName;
 let avatarSrc;
 let colIndex;
 
-/*
-const colLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
-const rowNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
-*/
 const colLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
 const rowNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 const sideColors = ['Black', 'Blue', 'Orange', 'Pink', 'Green', 'Yellow'];
 const square1BackFace = []; // SEE COMMENT IN FUNCTION chooseSelection AT THE END OF THE DOCUMENT
-
-
 
 
 //------
@@ -46,50 +40,39 @@ function getSolutionNr(colIndex, rowIndex, colorFaceIndex) {
 }
 
 //-----
-
+let cellNew, row, faceElement
 // FUNCTION THAT ALLOWS THE CREATION OF THE FACES AND BUTTONS 
 function nameBtn(i, j, color) {
   // CREATION OF THE FACE
-  let faceElement = document.createElement("div")
+  faceElement = document.createElement("div")
   faceElement.classList.add(`${color}` + `Face`); // Name after the color of the face
   wrap.appendChild(faceElement);
   // each Face consists of 9 rows that should be created
   for (const i of colLetters) {
-    let row = document.createElement('span');
+    row = document.createElement('span');
     colIndex = colLetters.indexOf(i)
     // each Row consists of 9 cells (columns) that should be created. These cells are HTML buttons
     for (const j of rowNumbers) {
-      let cellNew = document.createElement("button");
+      cellNew = document.createElement("button");
       cellNew.classList.add("cell");
-      // caracteristics of the cells
-      //let text = document.createTextNode(i + j); ---> TO REMOVE
-      /*
-      let boardColor = JSON.parse(localStorage.getItem("board"))
-      //let boardColor = board[index]
-      let boardFace = `board${color}`
-      console.log(boardFace)
-      //console.log(boardColor.boardFace)
-      cellNew.innerText = boardFace[colLetters.indexOf(i)][rowNumbers.indexOf(j)]
-      */
       fillFaceWithNumber(`board${color}`, colIndex, j, cellNew);
 
-      (cellNew.innerText=="-") ? cellNew.classList.add("valueToFind") : cellNew.classList.add("valueGiven");
+      (cellNew.innerText == "-") ? cellNew.classList.add("valueToFind") : cellNew.classList.add("valueGiven");
 
       cellNew.classList.add(`${i + j}`);
       cellNew.classList.add(`${color}`);
       cellNew.id = color + String(`${i + j}`);
-      //cellNew.appendChild(text); ---> TO REMOVE
       cellNew.setAttribute("onmousedown", "showOptions(" + cellNew.id + ")"); // this shows the square with numbers 1 to 9 to select from
 
       row.appendChild(cellNew);
 
       // COLORING THE BORDERS OF 3x3 SQUARES
-      
+
       (rowNumbers.indexOf(j) == 2 || rowNumbers.indexOf(j) == 5) ? cellNew.classList.add("horizontal-line-bottom") : cellNew.classList.add("noline");
       (rowNumbers.indexOf(j) == 3 || rowNumbers.indexOf(j) == 6) ? cellNew.classList.add("horizontal-line-top") : cellNew.classList.add("noline");
       (colLetters.indexOf(i) == 2 || colLetters.indexOf(i) == 5) ? cellNew.classList.add("vertical-line-right") : cellNew.classList.add("noline");
       (colLetters.indexOf(i) == 3 || colLetters.indexOf(i) == 6) ? cellNew.classList.add("vertical-line-left") : cellNew.classList.add("noline");
-    
+
     }
     row.classList.add(`${color}`);
     faceElement.appendChild(row);
@@ -143,8 +126,8 @@ document.addEventListener('keydown', function (e) {
 }, false);
 
 
-let row1=[]
-let arraySquare1 = [{colorFace: "Blue"}];
+let row1 = []
+let arraySquare1 = [{ colorFace: "Blue" }];
 // Destructuring + spread --> the idea is to remove the available posibilities if already used
 let { elementosCompletados, ...rest } = { elementosCompletados: arraySquare1, val1: 1, val2: 2, val3: 3, val4: 4, val5: 5, val6: 6, val7: 7, val8: 8, val9: 9 };
 
@@ -154,30 +137,22 @@ function chooseSelection(sel) {
   let selector = document.getElementById('selection');
   selector.style.display = 'none';
   (sel.id !== "closeOptions") ? currentlyEditing.innerHTML = sel.innerHTML : ""; // in order to allow to close the selection chart
-  //currentlyEditing = null;
-  // CODE TO BE USE IN THE FUTURE TO GET THE VALUES OF EVERY CELL
-  //let selectedNumber = sel.textContent
   //square1BackFace.push(selectedNumber); // This is added to test the future function of populating an array
   let idToLook = currentlyEditing.id;
   arraySquare1[idToLook] = currentlyEditing.textContent;
   console.log(arraySquare1);
 }
 let colorFace2
-function getProposedSolution(colorFace2){
-  // let button = document.getElementsByTagName("button")
+function getProposedSolution(colorFace2) {
   let colorButtons = document.querySelectorAll(`button.${colorFace2}`)
-  /*
-  colorButtons.forEach(element => {
-    let idToLook = element.id;
-  blueButtonsArray[idToLook] = currentlyEditing.textContent;
-  });*/
-  let colorSolutionProposed={colorFace: `${colorFace2}`}
+
+  let colorSolutionProposed = { colorFace: `${colorFace2}` }
   for (let i = 0; i < 9; i++) {
-    let rowNr=`row${i+1}`
-    rowNr= [colorButtons[i].innerHTML,colorButtons[i+9].innerHTML,colorButtons[i+18].innerHTML,colorButtons[i+27].innerHTML,colorButtons[i+36].innerHTML,colorButtons[i+45].innerHTML,colorButtons[i+54].innerHTML,colorButtons[i+63].innerHTML,colorButtons[i+72].innerHTML]
-    console.log(`row${i+1}:${rowNr.join('')}`)
-    colorSolutionProposed[`row${i+1}`]=`${rowNr.join('')}`;
-}
+    let rowNr = `row${i + 1}`
+    rowNr = [colorButtons[i].innerHTML, colorButtons[i + 9].innerHTML, colorButtons[i + 18].innerHTML, colorButtons[i + 27].innerHTML, colorButtons[i + 36].innerHTML, colorButtons[i + 45].innerHTML, colorButtons[i + 54].innerHTML, colorButtons[i + 63].innerHTML, colorButtons[i + 72].innerHTML]
+    console.log(`row${i + 1}:${rowNr.join('')}`)
+    colorSolutionProposed[`row${i + 1}`] = `${rowNr.join('')}`;
+  }
   console.log(colorSolutionProposed)
   return colorSolutionProposed
 }
@@ -185,124 +160,93 @@ function getProposedSolution(colorFace2){
 let proposedSolution = []
 let sol
 
-function uploadSolution(){
-sideColors.forEach(element => {
-  sol = getProposedSolution(element)
-  proposedSolution[sideColors.indexOf(element)]=sol
-})
-  console.log(sol)  
+function uploadSolution() {
+  sideColors.forEach(element => {
+    sol = getProposedSolution(element)
+    proposedSolution[sideColors.indexOf(element)] = sol
+  })
+  console.log(sol)
 
-;
-localStorage.setItem("proposedSolution", JSON.stringify(proposedSolution));
+    ;
+  localStorage.setItem("proposedSolution", JSON.stringify(proposedSolution));
 }
 
+let mousepos, selector
 // FUNCTION TO SHOW THE POSIBLE NUMBERS --- IT IS SHOW AS A BLACK SQUARE
-function showOptions(nuevoBoton) {
+function showOptions(newButton) {
+  currentlyEditing = newButton;
 
-  //console.log(rest); // to be use in future to show in DOM the available posibilities
-
-  currentlyEditing = nuevoBoton;
-  //let selector = document.getElementById('selection');
-  let mousepos = [MouseEvent.clientX, MouseEvent.clientY];
-  let selector = document.getElementById('selection');
-  selector.style.top = +mousepos[1] + 'px'; /* esto es para que no aparezca encima*/
+  mousepos = [MouseEvent.clientX, MouseEvent.clientY];
+  selector = document.getElementById('selection');
+  selector.style.top = +mousepos[1] + 'px'; /* to avoid that it overlaps the number*/
   selector.style.left = +mousepos[0] + 'px';
   selector.style.display = 'block';
 }
 
-//// TIMER 
-let hours = 0;
-let mins = 0;
-let seconds = 0;
-let timeInSeconds = 0;
-let timeRanking = 0;
 
-$('#continueTime').click(function () {
-  startTimer();
-});
-
-$('#pause').click(function () {
-  clearTimeout(timex); // clearTimeout() method prevents the setTimeout() method from executing the function.
-});
-
-function checkSolution(){
-let sol1=JSON.parse(localStorage.getItem("boardSolution"))
-let sol2=JSON.parse(localStorage.getItem("proposedSolution"))
-let sol3=JSON.stringify(sol1)
-console.log(sol3)
-let sol4=JSON.stringify(sol2)
-console.log(sol4)
-let isSolutionEqual = (sol3==sol4)
-return isSolutionEqual
+function checkSolution() {
+  let sol1 = JSON.parse(localStorage.getItem("boardSolution"))
+  let sol2 = JSON.parse(localStorage.getItem("proposedSolution"))
+  let sol3 = JSON.stringify(sol1)
+  console.log(sol3)
+  let sol4 = JSON.stringify(sol2)
+  console.log(sol4)
+  let isSolutionEqual = (sol3 == sol4)
+  return isSolutionEqual
 }
 
 
 $('#finish').click(function () {
   uploadSolution();
-  (checkSolution()) ? answerCorrect() : "" ;
-
-
-  function answerCorrect(){
-  clearTimeout(timex); // clearTimeout() method prevents the setTimeout() method from executing the function.
-  $('#continueTime').prop('disabled', true)
-  $('#pause').prop('disabled', true)
-  $('#finish').prop('disabled', true)
-  timeRanking = timeInSeconds;
-
-  Swal.fire({ // implementation of sweet alert
-    title: 'WELL DONE!',
-    text: `Your time is: ${timeRanking} seconds`,
-    icon: 'success',
-    confirmButtonText: "PLAY AGAIN",
-    showCancelButton: true,
-
-  }).then((result) => {
-    if (result.value) {
-      UpdateScore();
-      $('#continueTime').prop('disabled', false)
-      $('#pause').prop('disabled', false)
-      $('#finish').prop('disabled', false)
-      reStartingGameSamePlayer();
-
-    } else {
-      UpdateScore();
-    }
-  })
+  (checkSolution()) ? answerCorrect() : wrongAnswer();
 
 
 
-}});
+  function wrongAnswer() {
+    Swal.fire({ // implementation of sweet alert
+      title: 'WELL OPPS!',
+      text: `There is an error in the proposed solution`,
+      icon: 'error',
+      confirmButtonText: "CONTINUE TRYING",
+      showCancelButton: false,
 
-function startTimer() {
-  timex = setTimeout(function () {
-    seconds++;
-    if (seconds > 59) {
-      seconds = 0; mins++;
-      if (mins > 59) {
-        mins = 0; hours++;
+    })
+  }
 
-        if (hours < 10) { $("#hours").text('0' + hours + ':') } else $("#hours").text(hours + ':');
+  function answerCorrect() {
+    clearTimeout(timex); // clearTimeout() method prevents the setTimeout() method from executing the function.
+    $('#continueTime').prop('disabled', true)
+    $('#pause').prop('disabled', true)
+    $('#finish').prop('disabled', true)
+    timeRanking = timeInSeconds;
+
+    Swal.fire({ // implementation of sweet alert
+      title: 'WELL DONE!',
+      text: `Your time is: ${timeRanking} seconds`,
+      icon: 'success',
+      confirmButtonText: "PLAY AGAIN",
+      showCancelButton: true,
+
+    }).then((result) => {
+      if (result.value) {
+        UpdateScore();
+        $('#continueTime').prop('disabled', false)
+        $('#pause').prop('disabled', false)
+        $('#finish').prop('disabled', false)
+        reStartGame();
+
+      } else {
+        UpdateScore();
       }
-
-      if (mins < 10) {
-        $("#mins").text('0' + mins + ':');
-      }
-      else $("#mins").text(mins + ':');
-    }
-    if (seconds < 10) {
-      $("#seconds").text('0' + seconds);
-    } else {
-      $("#seconds").text(seconds);
-    }
+    })
 
 
-    startTimer();
-  }, 1000);
 
-  timeInSeconds = hours * 3600 + mins * 60 + seconds;
-}
+  }
+});
 
-////// RANKING
+
+////// ------ RANKING
 // It will be stored in LocalStore and access only the first ten fastest players
 //let game = document.querySelector("section#game");
 //let score = game.querySelector("section#game span.score");
@@ -312,127 +256,52 @@ let game = document.querySelector("#modalRanking");
 let high_scores = game.querySelector("ol.high-scores");
 const modalRanking = document.getElementById("modalRanking");
 
-//let rankingButtonClicked = false
-
 $('#rankingBtn').click(function () {
   showHighscore()
-  /*
-  (rankingButtonClicked == false)? showHighscore() : hideHighScore();
-  console.log(rankingButtonClicked);*/
+
 }
 );
 
 $('#closeBtn').click(function () {
   hideHighScore()
-  /*
-  (rankingButtonClicked == false)? showHighscore() : hideHighScore();
-  console.log(rankingButtonClicked);*/
+
 }
 );
 
-
-
-function showHighscore() {
-  modalRanking.style.display = "block";
-  let rank;
-  let highScoresList = JSON.parse(localStorage["high-scores"]);
-
-  const title = document.createElement("span");
-  title.innerText = "HIGH SCORE";
-  high_scores.appendChild(title);
-
-  for (let i = 0; i < 10; i++) {
-    let player = highScoresList[i].playerName   // I create this variable because sometimes I get an error in the following line despite it is
-    rank = `${player}` + ":" + `${highScoresList[i].timeInSeconds}` + "seconds";
-
-    const avatarImg = document.createElement("img");
-    avatarImg.src = highScoresList[i].avatar;
-    high_scores.appendChild(avatarImg);
-
-
-    let fragment = document.createElement('li');
-    fragment.classList.add("listElementRanking")
-    fragment.innerHTML = (typeof (rank) != "undefined" ? rank : "");
-    high_scores.appendChild(fragment);
-
-
-
-    //rankingButtonClicked = true
-  }
-  ;
-}
-
-function hideHighScore() {
-
-  const parentToRemoveChildsFrom = document.getElementById("high-scores")
-  removeChilds(parentToRemoveChildsFrom);
-  modalRanking.style.display = "none";
-  //rankingButtonClicked = false;
-
-}
-
-
-const removeChilds = (parent) => {
-  while (parent.lastChild) {
-    parent.removeChild(parent.lastChild);
-  }
-};
-
-function UpdateScore() {
-
-  // Parse any JSON previously stored in allEntries
-  let HighScores = JSON.parse(localStorage.getItem("high-scores"));
-  if (HighScores == null) HighScores = [];
-
-  let entry = {
-    "playerName": playerName,
-    "timeInSeconds": timeInSeconds,
-    "avatar": avatarSrc
-  };
-  //Save the new score
-  localStorage.setItem("newScore", JSON.stringify(entry));
-  // Save allEntries back to local storage in ascending order related to the time in seconds it took to solve the game
-  HighScores.push(entry);
-  HighScores = HighScores.sort(compareValues("timeInSeconds"));
-  localStorage.setItem("high-scores", JSON.stringify(HighScores));
-}
-
-
-
-// FUNCTION TO SORT THE VALUES IN ASCENDING / DESC ORDER
-
-function compareValues(key, order = 'asc') {
-  return function innerSort(a, b) {
-    if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
-      // property doesn't exist on either object
-      return 0;
-    }
-
-    const varA = (typeof a[key] === 'string')
-      ? a[key].toUpperCase() : a[key];
-    const varB = (typeof b[key] === 'string')
-      ? b[key].toUpperCase() : b[key];
-
-    let comparison = 0;
-    if (varA > varB) {
-      comparison = 1;
-    } else if (varA < varB) {
-      comparison = -1;
-    }
-    return (
-      (order === 'desc') ? (comparison * -1) : comparison
-    );
-  };
-}
+/////--------///////
 
 
 // GAME BEGINING
 
 //GENERATE A RANDOM POKEMON AVATAR WITH THE NAME OF THE PERSON AND SHOW IT IN THE PAGE AND RANKING
 
+function gettingPlayerName(){
+
+(async () => {
+
+  const {value: value} = await swal.fire({
+    title: 'YOUR NAME:',
+    input: 'text',
+      showCancelButton: false,
+      inputValidator: (value) => {
+          return new Promise((resolve) => {
+              if (value !== null && value !== "") {
+                  resolve()
+                  
+              } else {
+                  resolve('You need to write your name')
+              }
+          })
+      }
+  })
+  playerName = value
+  console.log(playerName);
+  getPokemonAvatar(playerName);
+  startTimer();
+  })()
+}
+
 function getPokemonAvatar(playerNameInput) {
-
-
 
   const sumOfChar = playerNameInput.charCodeAt(0) + playerNameInput.charCodeAt(1);
   console.log(sumOfChar)
@@ -447,7 +316,6 @@ function getPokemonAvatar(playerNameInput) {
 
 }
 
-
 function createPokemonAvatar(pokemon) {
   const inputAvatar = document.getElementById("pokemonAvatar");
   const avatarImg = document.createElement("img");
@@ -458,41 +326,13 @@ function createPokemonAvatar(pokemon) {
   inputAvatar.append(div)
 }
 
-
-
-
-
-function gettingPlayerName() {
-  let input = prompt("PLAYERS NAME:");
-
-  if (input !== null && input !== "") {
-    playerName = input
-    getPokemonAvatar(playerName);
-
-  }
-  else {
-    alert("Please fill with your Name");
-    gettingPlayerName();
-  }
-
-  console.log(playerName);
-}
-
 function startingGame() {
   gettingPlayerName(); // ASK FOR PLAYERS NAME IN ORDER TO STORE IT FOR THE RANKING
-  startTimer();
 }
 
-function reStartingGameSamePlayer() {
-  hours = 0; mins = 0; seconds = 0;
-  $('#hours', '#mins').html('00:');
-  $('#seconds').html('00');
-  startTimer();
+function reStartGame() {
+  location.reload()
 }
-
-
-
-
 
 startingGame();
 

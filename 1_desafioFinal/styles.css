@@ -1,13 +1,22 @@
-body{
+body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.flex-container>div {
+    align-self: center;
+}
 
 /*TIMER*/
 #timer {
     font-size: 50px;
     margin: 0 auto;
-    width: 1000px;
 }
 
 #controls {
@@ -33,14 +42,9 @@ section#game .start .high-scores {
 
 /*CUBE*/
 .container {
-    width: 400px;
-    height: 400px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
+    margin-bottom: 150px;
+    margin-top: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -75,21 +79,10 @@ section#game .start .high-scores {
     padding: 0px;
 }
 
-/*
-.box div span {
-    height          : calc(390/13 px);
-    /*background-color: var(--clr);*/
-/*border-radius   : 10px;
-    position        : relative;
-    z-index         : -1;
-    overflow        : hidden;
-    text-align      : center;
-}*/
 
 .cell {
     width: 30px;
     height: 30px;
-
     margin: 0px;
     padding: 0px;
     border: 0px;
@@ -113,6 +106,7 @@ section#game .start .high-scores {
 .vertical-line-right {
     border-right: 2px solid black;
 }
+
 .vertical-line-left {
     border-left: 2px solid black;
 }
@@ -170,75 +164,50 @@ section#game .start .high-scores {
     background-color: yellow
 }
 
-.valueToFind{
+.valueToFind {
     color: #ddd;
     background-color: grey;
 }
 
-.valueGiven{
+.valueGiven {
     font-weight: bold;
     color: black;
-    pointer-events:none; /* to avoid selection*/
+    pointer-events: none;
+    /* to avoid selection*/
 
 }
-
-/*
-
- #wrapper{
-    width: 270px;
- }
-
-  #wrapper> div {
-    text-align: center;
-    margin: 0px;
-    display: flex;
-    flex-wrap: nowrap;
-    word-wrap: break-word;
- }*/
-
-/*
- .A1, .A2, .A3, .A4, .A5, .A9, .A10, .A11, .A12, .A13,
- .B1, .B2, .B3, .B4, .B5,  .B9, .B10, .B11, .B12, .B13,
- .C1, .C2, .C12, .C13,
- .D1, .D2, .D12, .D13,
- .E1, .E2, .E12, .E13,
- .I1, .I2, .I12, .I13,
- .J1, .J2, .J12, .J13,
- .K1, .K2, .K12, .K13,
- .L1, .L2, .L3, .L4, .L5, .L9, .L10, .L11, .L12, .L13,
- .M1, .M2, .M3, .M4, .M5, .M9, .M10, .M11, .M12, .M13,
- .A7, .G1, .F13, .H13, .M6, .M8, .M13 {
-    background-color: black;
- }*/
 
 
 #selection {
     display: none;
-    position: fixed;
 }
 
 #selection>.split {
-    /*para armar el bloque de numeros de sugerencia*/
-    display: block;
+    display: inline-flex;
+
 
 }
 
 #selection>span {
     display: inline-block;
     width: 30px;
-    border: 1px solid blueviolet;
-    background: #323;
+    height: 30px;
+    border: 2px solid black;
+    background-color: grey;
     color: #ddd;
     padding: 2px;
     cursor: pointer;
     text-align: center;
+    font-size: 20px;
+    margin: 25px 0px;
 }
+
 
 #selection>span:hover {
-    background: #55a;
+    background: black;
 }
 
-.modal{
+.modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -247,50 +216,49 @@ section#game .start .high-scores {
     height: 100%;
     width: 100%;
     overflow: auto;
-    background-color: rgba(0, 0,0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 
 }
 
-.modalContent{
+.modalContent {
     background-color: whitesmoke;
     margin: 5% auto;
     padding: 20px;
     width: 70%;
-    box-shadow:0 5px 5px 0 black;
-    
+    box-shadow: 0 5px 5px 0 black;
+
 }
 
-#high-scores>span{
+#high-scores>span {
     font-size: 50px;
     font-weight: bold;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: crimson;
 
-    
+
 }
 
-#closeBtn{
+#closeBtn {
     display: flex;
     justify-content: end;
     font-size: 50px;
     font-weight: bold;
-    color:gray
-
+    color: gray
 }
 
-#closeBtn:hover, #closeBtn:focus{
-    color:black;
-    cursor:pointer
+#closeBtn:hover,
+#closeBtn:focus {
+    color: black;
+    cursor: pointer
 }
 
 
 
 
 
-#high-scores{
+#high-scores {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     flex-direction: column;
 }
-

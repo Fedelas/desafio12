@@ -9,46 +9,59 @@
   <title>DESAFIO 4</title>
   <script defer src="./main.js"></script>
   <script defer src="./board.js"></script>
+  <script defer src="./ranking.js"></script>
+  <script defer src="./timer.js"></script>
+  
 
 </head>
 
 <body>
-  <div>
-    <h1>CUDOKU - Under construction</h1>
+  <div class="flex-container">
+    <h1>CUDOKU</h1>
     <p>Use W, S and arrow keys to rotate the cube</p>
 
-    <div id="pokemonAvatar">
-
-    </div>
-
+    <div id="pokemonAvatar"></div>
 
     <div id="timer">
       <span id="hours">00:</span>
       <span id="mins">00:</span>
       <span id="seconds">00</span>
     </div>
-    <div id="controls">
-      <button id="continueTime">CONTINUE TIME</button>
-      <button id="pause">PAUSE</button>
-      <button id="finish">FINISH</button>
+
+
+
+    <!--It is the container where the cube will be inserted-->
+    <div class="container">
+      <div class="box" id="wrapper"></div>
+    </div>
+
+
+    <!-- NUMBERS TO SELECT: 1-9 and X to close the options This div is not display, it shows only when a grey cell is selected-->
+    <div id="selection">
+
+      <span id="s1" onmouseup="chooseSelection(s1)">1</span><span id="s2" onmouseup="chooseSelection(s2)">2</span><span
+        id="s3" onmouseup="chooseSelection(s3)">3</span>
+      <div class="split"></div>
+      <span id="s4" onmouseup="chooseSelection(s4)">4</span><span id="s5" onmouseup="chooseSelection(s5)">5</span><span
+        id="s6" onmouseup="chooseSelection(s6)">6</span>
+      <div class="split"></div>
+      <span id="s7" onmouseup="chooseSelection(s7)">7</span><span id="s8" onmouseup="chooseSelection(s8)">8</span><span
+        id="s9" onmouseup="chooseSelection(s9)">9</span>
+      <span id="closeOptions" onmouseup="chooseSelection(closeOptions)">X</span>
 
     </div>
 
 
-    <section id="game">
+
+    <div id="controls">
+      <button id="finish">CHECK SOLUTION</button>
       <button id="rankingBtn">RANKING</button>
-      <!--<ol class="high-scores" id="high-scores">
-      </ol>-->
-      
-    </section>
-
+    </div>
 
   </div>
 
-  <div class="container">
-    <div class="box" id="wrapper"></div>
-  </div>
 
+  <!--Hidden modal that will show the ranking-->
   <div id="modalRanking" class="modal">
     <div class="modalContent">
       <span id="closeBtn">&times;</span>
@@ -58,19 +71,7 @@
     </div>
   </div>
 
-  <div id="selection">
-    <span id="s1" onmouseup="chooseSelection(s1)">1</span><span id="s2" onmouseup="chooseSelection(s2)">2</span><span
-      id="s3" onmouseup="chooseSelection(s3)">3</span>
-    <div class="split"></div>
-    <span id="s4" onmouseup="chooseSelection(s4)">4</span><span id="s5" onmouseup="chooseSelection(s5)">5</span><span
-      id="s6" onmouseup="chooseSelection(s6)">6</span>
-    <div class="split"></div>
-    <span id="s7" onmouseup="chooseSelection(s7)">7</span><span id="s8" onmouseup="chooseSelection(s8)">8</span><span
-      id="s9" onmouseup="chooseSelection(s9)">9</span>
-    <span id="closeOptions" onmouseup="chooseSelection(closeOptions)">X</span>
 
-
-  </div>
 
 
 

@@ -90,7 +90,7 @@ generateBoardGame(element)}
 
 
 function generateBoardGame(element) {
-const complexity = .5; // 0 to .99 if more then more letters in src string will be replaced by random ones 
+const complexity = .01; // 0 to .99 if more then more letters in src string will be replaced by random ones 
 const randsArr = ("------------------------------------------------------").split('');
 for (let j = 0; j < 6; j++) {
         let srcArr = (element[j]).split('');
