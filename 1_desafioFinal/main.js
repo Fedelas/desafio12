@@ -8,12 +8,15 @@ let colIndex;
 
 const colLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
 const rowNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
 const sideColors = ['Black', 'Blue', 'Orange', 'Pink', 'Green', 'Yellow'];
-const square1BackFace = []; // SEE COMMENT IN FUNCTION chooseSelection AT THE END OF THE DOCUMENT
+// SE PUEDE BORRAR en principio const square1BackFace = []; // SEE COMMENT IN FUNCTION chooseSelection AT THE END OF THE DOCUMENT
 
 
-//------
+//------ CREATION OF THE FACES ------- ////
+
+// FUNCTION THAT ALLOWS THE CREATION OF THE FACES AND BUTTONS
+// There are three important functions:  fillFaceWithNumber(), getSolutionNr() and nameBtn()
+
 function fillFaceWithNumber(colorFace, i, j, cellNew) {
 
   switch (colorFace) {
@@ -26,7 +29,7 @@ function fillFaceWithNumber(colorFace, i, j, cellNew) {
   }
 }
 
-
+// gets the solution from the board.js file. This file is the generator of each of the five sudokus
 function getSolutionNr(colIndex, rowIndex, colorFaceIndex) {
   const boardSolution = JSON.parse(localStorage.getItem("boardGameStart"));
   let rowNr = `row${rowIndex}`
@@ -39,9 +42,9 @@ function getSolutionNr(colIndex, rowIndex, colorFaceIndex) {
   return numberToFill
 }
 
-//-----
+
+// creation of the 81 buttons with its characteristics (face,if is available to find)
 let cellNew, row, faceElement
-// FUNCTION THAT ALLOWS THE CREATION OF THE FACES AND BUTTONS 
 function nameBtn(i, j, color) {
   // CREATION OF THE FACE
   faceElement = document.createElement("div")
@@ -57,7 +60,7 @@ function nameBtn(i, j, color) {
       cellNew.classList.add("cell");
       fillFaceWithNumber(`board${color}`, colIndex, j, cellNew);
 
-      (cellNew.innerText == "-") ? cellNew.classList.add("valueToFind") : cellNew.classList.add("valueGiven");
+      (cellNew.innerText == "-") ? cellNew.classList.add("valueToFind") : cellNew.classList.add("valueGiven"); // valueTo Find corresponds to the grey ones. valueGiven corresponds to the others button that have the background color of the face
 
       cellNew.classList.add(`${i + j}`);
       cellNew.classList.add(`${color}`);
@@ -80,19 +83,25 @@ function nameBtn(i, j, color) {
   }
 }
 
-// CREATE FACE FUNCTION
-// Each face should be the same (9x9)
+//-----
+// CREATION OF THE FACES
+for (let color of sideColors) {
+  //createFace(i);
+  nameBtn(colLetters, rowNumbers, color);
+}
 
-function createFace2(color) {
+/// ----- CLOSE CREATION OF THE FACES ----- /////
+/*
+
+SE PUEDE BORRAR 
+function createFace(color) {
   nameBtn(colLetters, rowNumbers, color);
 
-}
-
-for (let i of sideColors) {
-  createFace2(i);
-}
+}*/
 
 
+/*
+SE PUEDE BORRAR EN PRINCIPIO
 // CODE TO MAKE THE CUBE ROTATE
 let xAngle = 0, yAngle = 0, zAngle = 0;
 document.addEventListener('keydown', function (e) {
@@ -123,37 +132,52 @@ document.addEventListener('keydown', function (e) {
       break;
   }
   $('#wrapper').css("webkit-transform", "rotateX(" + xAngle + "deg) rotateY(" + yAngle + "deg) rotatez(" + zAngle + "deg)");
-}, false);
+}, false);*/
 
+// ----- SELECTING NUMBER  -------
+//FUNCTIONS TO CHOSE THE NUMBER AND FILL THE BUTTON WITH THE CHOSEN NUMBER
 
-let row1 = []
-let arraySquare1 = [{ colorFace: "Blue" }];
-// Destructuring + spread --> the idea is to remove the available posibilities if already used
-let { elementosCompletados, ...rest } = { elementosCompletados: arraySquare1, val1: 1, val2: 2, val3: 3, val4: 4, val5: 5, val6: 6, val7: 7, val8: 8, val9: 9 };
+// SE PUEDE BORRAR EN PRINCIPIO let row1 = []
+let proposedSolutionValues = [{ colorFace: "Blue" }]; // this file will be use to check is the proposed solution is ok
+// Destructuring + spread --> the idea is to store the proposed solutions values to used it in a further upgrade to check if is not incorrect. Not used now
+let { filledElements, ...rest } = { filledElements: proposedSolutionValues, val1: 1, val2: 2, val3: 3, val4: 4, val5: 5, val6: 6, val7: 7, val8: 8, val9: 9 };
 
+// Showing the 1-9 numbers  --- IT IS SHOW AS A ROW OF GREY SQUARES WHEN A NUMBER TO FIND CELL IS CLICKED
+let mousepos, selector
+function showOptions(newButton) {
+  currentlyEditing = newButton;
 
-// FUNCTION TO CHOSE THE NUMBER AND FILL THE BUTTON WITH THE CHOSEN NUMBER
+  mousepos = [MouseEvent.clientX, MouseEvent.clientY];
+  selector = document.getElementById('selection');
+  selector.style.top = +mousepos[1] + 'px'; /* to avoid that it overlaps the number*/
+  selector.style.left = +mousepos[0] + 'px';
+  selector.style.display = 'block';
+}
+
 function chooseSelection(sel) {
   let selector = document.getElementById('selection');
   selector.style.display = 'none';
   (sel.id !== "closeOptions") ? currentlyEditing.innerHTML = sel.innerHTML : ""; // in order to allow to close the selection chart
   //square1BackFace.push(selectedNumber); // This is added to test the future function of populating an array
   let idToLook = currentlyEditing.id;
-  arraySquare1[idToLook] = currentlyEditing.textContent;
-  console.log(arraySquare1);
+  proposedSolutionValues[idToLook] = currentlyEditing.textContent;
 }
-let colorFace2
-function getProposedSolution(colorFace2) {
-  let colorButtons = document.querySelectorAll(`button.${colorFace2}`)
 
-  let colorSolutionProposed = { colorFace: `${colorFace2}` }
+///////----CLOSE SELECTING NUMBER----///////
+
+//------FINISHING GAME ------
+let colorFace
+function getProposedSolution(colorFace) {
+  let colorButtons = document.querySelectorAll(`button.${colorFace}`)
+
+  let colorSolutionProposed = { colorFace: `${colorFace}` }
   for (let i = 0; i < 9; i++) {
     let rowNr = `row${i + 1}`
     rowNr = [colorButtons[i].innerHTML, colorButtons[i + 9].innerHTML, colorButtons[i + 18].innerHTML, colorButtons[i + 27].innerHTML, colorButtons[i + 36].innerHTML, colorButtons[i + 45].innerHTML, colorButtons[i + 54].innerHTML, colorButtons[i + 63].innerHTML, colorButtons[i + 72].innerHTML]
-    console.log(`row${i + 1}:${rowNr.join('')}`)
+    //console.log(`row${i + 1}:${rowNr.join('')}`)
     colorSolutionProposed[`row${i + 1}`] = `${rowNr.join('')}`;
   }
-  console.log(colorSolutionProposed)
+  //console.log(colorSolutionProposed)
   return colorSolutionProposed
 }
 
@@ -171,34 +195,21 @@ function uploadSolution() {
   localStorage.setItem("proposedSolution", JSON.stringify(proposedSolution));
 }
 
-let mousepos, selector
-// FUNCTION TO SHOW THE POSIBLE NUMBERS --- IT IS SHOW AS A BLACK SQUARE
-function showOptions(newButton) {
-  currentlyEditing = newButton;
-
-  mousepos = [MouseEvent.clientX, MouseEvent.clientY];
-  selector = document.getElementById('selection');
-  selector.style.top = +mousepos[1] + 'px'; /* to avoid that it overlaps the number*/
-  selector.style.left = +mousepos[0] + 'px';
-  selector.style.display = 'block';
-}
-
-
 function checkSolution() {
   let sol1 = JSON.parse(localStorage.getItem("boardSolution"))
   let sol2 = JSON.parse(localStorage.getItem("proposedSolution"))
   let sol3 = JSON.stringify(sol1)
-  console.log(sol3)
+  //console.log(sol3)
   let sol4 = JSON.stringify(sol2)
-  console.log(sol4)
-  let isSolutionEqual = (sol3 == sol4)
+  //console.log(sol4)
+  let isSolutionEqual = (sol3 == sol4) 
   return isSolutionEqual
 }
 
 
 $('#finish').click(function () {
   uploadSolution();
-  (checkSolution()) ? answerCorrect() : wrongAnswer();
+  (checkSolution()) ? answerCorrect() : wrongAnswer(); //if it is correct it will upload otherwise an alert comes and continue the game
 
 
 
@@ -239,19 +250,13 @@ $('#finish').click(function () {
         UpdateScore();
       }
     })
-
-
-
   }
 });
 
+/////----CLOSE FINISHING GAME----///////
 
-////// ------ RANKING
-// It will be stored in LocalStore and access only the first ten fastest players
-//let game = document.querySelector("section#game");
-//let score = game.querySelector("section#game span.score");
-//let high_scores = game.querySelector("section#game ol.high-scores");
-
+// ------ RANKING ------ /////
+/// shows/close and update ranking. Use ranking.js file
 let game = document.querySelector("#modalRanking");
 let high_scores = game.querySelector("ol.high-scores");
 const modalRanking = document.getElementById("modalRanking");
@@ -268,10 +273,10 @@ $('#closeBtn').click(function () {
 }
 );
 
-/////--------///////
+/////----CLOSE RANKING----///////
 
 
-// GAME BEGINING
+// ------GAME BEGINING------/////
 
 //GENERATE A RANDOM POKEMON AVATAR WITH THE NAME OF THE PERSON AND SHOW IT IN THE PAGE AND RANKING
 
@@ -334,7 +339,8 @@ function reStartGame() {
   location.reload()
 }
 
-startingGame();
+
+startingGame(); // Starts the game
 
 
 

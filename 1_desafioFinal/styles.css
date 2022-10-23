@@ -27,24 +27,13 @@ body {
     font-size: 15px;
 }
 
-/* LEADER BOARD SCORE*/
-section#game .score {
-    display: block;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
 
-
-section#game .start .high-scores {
-    text-align: left;
-}
 
 /*CUBE*/
 .container {
     transform: translate(-50%, -50%);
-    margin-bottom: 150px;
     margin-top: 150px;
+    margin-bottom: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,7 +42,6 @@ section#game .start .high-scores {
 
 
 .box {
-
     transform-style: preserve-3d;
     position: absolute;
     width: 270px;
@@ -91,7 +79,6 @@ section#game .start .high-scores {
     word-wrap: break-word;
     flex-wrap: nowrap;
     background-color: orange;
-    /*con SASS despues puedo modificar el color de la cara*/
 }
 
 
@@ -178,6 +165,7 @@ section#game .start .high-scores {
 }
 
 
+/* -- NUMBERS TO BE SELECTED ---*/
 #selection {
     display: none;
 }
@@ -206,6 +194,9 @@ section#game .start .high-scores {
 #selection>span:hover {
     background: black;
 }
+
+
+/* LEADER BOARD SCORE*/
 
 .modal {
     display: none;
@@ -252,13 +243,21 @@ section#game .start .high-scores {
     cursor: pointer
 }
 
-
-
-
-
 #high-scores {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     flex-direction: column;
+}
+
+section#game .score {
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+
+section#game .start .high-scores {
+    text-align: left;
 }

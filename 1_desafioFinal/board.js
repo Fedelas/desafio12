@@ -1,6 +1,7 @@
 localStorage.removeItem("proposedSolution") // the proposed solution is the solution it will be compared to. First we have to remove it
 
 //------GAME SOLUTION OBJECTS.-----
+
 //These objects will be use for the creation of the initial setup and to see if the solution is correct.
 let gameSolution= [ {
     colorFace: "Black",
@@ -90,7 +91,7 @@ generateBoardGame(element)}
 
 
 function generateBoardGame(element) {
-const complexity = .01; // 0 to .99 if more then more letters in src string will be replaced by random ones 
+const complexity = .3; // 0 to .99 if more then more letters in src string will be replaced by random ones 
 const randsArr = ("------------------------------------------------------").split('');
 for (let j = 0; j < 6; j++) {
         let srcArr = (element[j]).split('');
@@ -122,9 +123,4 @@ function gameStart(boardFace){
 localStorage.setItem("boardGameStart", JSON.stringify(gameStart(boardFace)));
 //----------
 
-/*---- COMPARE PROPOSED SOLUTION WITH GAMESOLUTION 
-let sol1=JSON.parse(localStorage.getItem("boardSolution"))
-let sol2=JSON.parse(localStorage.getItem("proposedSolution"))
-let sol3=JSON.stringify(sol1)
-let sol4=JSON.stringify(sol2)
-let isSolutionEqual = (sol3==sol4) // return true if it is correct*/
+
