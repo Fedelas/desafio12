@@ -4,3 +4,5 @@ Each number on the side's face is the same to the adjacent one. See picture cudo
 Normal sudoku rules aplies to each sudoku. 
 
 You can rotate the cube with the keyboard arrows and with W, S keys.
+
+A random pokemos avatar is generated taking the name of the person. This is show and use in the ranking modal.

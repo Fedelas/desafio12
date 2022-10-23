@@ -6,11 +6,9 @@ let playerName;
 let avatarSrc;
 let colIndex;
 
-const colLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
-const rowNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
-const sideColors = ['Black', 'Blue', 'Orange', 'Pink', 'Green', 'Yellow'];
-// SE PUEDE BORRAR en principio const square1BackFace = []; // SEE COMMENT IN FUNCTION chooseSelection AT THE END OF THE DOCUMENT
-
+const colLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']; // columns of the faces
+const rowNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9']; // rows of the faces
+const sideColors = ['Black', 'Blue', 'Orange', 'Pink', 'Green', 'Yellow']; // color of the faces
 
 //------ CREATION OF THE FACES ------- ////
 
@@ -91,53 +89,10 @@ for (let color of sideColors) {
 }
 
 /// ----- CLOSE CREATION OF THE FACES ----- /////
-/*
-
-SE PUEDE BORRAR 
-function createFace(color) {
-  nameBtn(colLetters, rowNumbers, color);
-
-}*/
 
 
-/*
-SE PUEDE BORRAR EN PRINCIPIO
-// CODE TO MAKE THE CUBE ROTATE
-let xAngle = 0, yAngle = 0, zAngle = 0;
-document.addEventListener('keydown', function (e) {
-  switch (e.keyCode) {
-
-    case 37:// for left key  
-      yAngle -= 45;
-      break;
-
-    case 38:// for up key  
-      xAngle += 45;
-      break;
-
-    case 39:// for right key  
-      yAngle += 45;
-      break;
-
-    case 40:// for down key  
-      xAngle -= 45;
-      break;
-
-    case 83:// for s key  
-      zAngle += 45;
-      break;
-
-    case 87:// for w key  
-      zAngle -= 45;
-      break;
-  }
-  $('#wrapper').css("webkit-transform", "rotateX(" + xAngle + "deg) rotateY(" + yAngle + "deg) rotatez(" + zAngle + "deg)");
-}, false);*/
-
-// ----- SELECTING NUMBER  -------
+// ----- SELECTING NUMBER  ------- //////
 //FUNCTIONS TO CHOSE THE NUMBER AND FILL THE BUTTON WITH THE CHOSEN NUMBER
-
-// SE PUEDE BORRAR EN PRINCIPIO let row1 = []
 let proposedSolutionValues = [{ colorFace: "Blue" }]; // this file will be use to check is the proposed solution is ok
 // Destructuring + spread --> the idea is to store the proposed solutions values to used it in a further upgrade to check if is not incorrect. Not used now
 let { filledElements, ...rest } = { filledElements: proposedSolutionValues, val1: 1, val2: 2, val3: 3, val4: 4, val5: 5, val6: 6, val7: 7, val8: 8, val9: 9 };
@@ -165,7 +120,7 @@ function chooseSelection(sel) {
 
 ///////----CLOSE SELECTING NUMBER----///////
 
-//------FINISHING GAME ------
+//------FINISHING GAME ------ /////
 let colorFace
 function getProposedSolution(colorFace) {
   let colorButtons = document.querySelectorAll(`button.${colorFace}`)
@@ -255,7 +210,7 @@ $('#finish').click(function () {
 
 /////----CLOSE FINISHING GAME----///////
 
-// ------ RANKING ------ /////
+///// ------ RANKING ------ /////
 /// shows/close and update ranking. Use ranking.js file
 let game = document.querySelector("#modalRanking");
 let high_scores = game.querySelector("ol.high-scores");
@@ -276,7 +231,7 @@ $('#closeBtn').click(function () {
 /////----CLOSE RANKING----///////
 
 
-// ------GAME BEGINING------/////
+////// ------GAME BEGINING------/////
 
 //GENERATE A RANDOM POKEMON AVATAR WITH THE NAME OF THE PERSON AND SHOW IT IN THE PAGE AND RANKING
 
